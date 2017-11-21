@@ -8,7 +8,6 @@ package br.ufs.nubankchallenge.core.domain
 
 sealed class InfrastructureError : Throwable() {
 
-    object ContentNotFound : InfrastructureError()
     object RemoteSystemDown : InfrastructureError()
     object UndesiredResponse : InfrastructureError()
 }

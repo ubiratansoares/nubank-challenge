@@ -1,9 +1,10 @@
-package br.ufs.nubankchallenge.core.tests
+package br.ufs.nubankchallenge.core.tests.presentation
 
 import br.ufs.nubankchallenge.core.domain.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.NetworkingIssue
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorFeedback
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
+import br.ufs.nubankchallenge.core.tests.SilentObserver
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
