@@ -24,11 +24,42 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation project(':core')
+
+    def dependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.appTestDependencies
+
+    implementation dependencies.kotlin
+    implementation dependencies.kotlinReflect
+    implementation dependencies.rxJava
+    implementation dependencies.rxAndroid
+    implementation dependencies.appCompat
+    implementation dependencies.design
+    implementation dependencies.archRuntime
+    implementation dependencies.archExtensions
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.assertj
+    testImplementation testDependencies.roboletric
+
+    androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.espressoRules
+    androidTestImplementation testDependencies.espressoRunner
+    androidTestImplementation (testDependencies.barista) {
+        exclude group: 'com.android.support'
+    }
+}
+
+
+configurations.all {
+    resolutionStrategy {
+        forcedModules = [
+                rootProject.ext.forceResolution.kotlin,
+                rootProject.ext.forceResolution.kotlinReflect,
+                rootProject.ext.forceResolution.espressoCore,
+                rootProject.ext.forceResolution.espressoRunner,
+                rootProject.ext.forceResolution.espressoRules
+        ]
+    }
 }

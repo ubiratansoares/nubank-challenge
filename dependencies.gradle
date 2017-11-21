@@ -1,0 +1,88 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+
+    //Android Project Targets
+    minSDK = 21
+    targetSDK = 26
+    compileSDK = 26
+    buildToolsVersion = '26.0.2'
+
+    // Kotlin Support
+    kotlinJVMTarget = "1.6"
+    kotlinVersion = '1.1.51'
+
+    //Libraries
+    gsonVersion = "2.7"
+    okHttpVersion = '3.8.0'
+    retrofitVersion = '2.3.0'
+    rxJavaVersion = '2.1.6'
+    rxAndroidVersion = '2.0.1'
+    supportLibraryVersion = '26.1.0'
+    archComponentsVersion = '1.0.3'
+    archExtensionsVersion = '1.0.0'
+
+    //Testing
+    jUnitVersion = '4.12'
+    assertJVersion = '3.8.0'
+    mockitoKotlinVersion = '1.5.0'
+    roboletricVersion = '3.5.1'
+    espressoCoreVersion = '3.0.1'
+    espressoToolsVersion = '1.0.1'
+    baristaVersion = '1.7.0'
+
+    forceResolution = [
+            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
+            kotlinReflect : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
+            espressoCore  : "com.android.support.test.espresso:espresso-core:${espressoCoreVersion}",
+            espressoRunner: "com.android.support.test:runner:${espressoToolsVersion}",
+            espressoRules : "com.android.support.test:rules:${espressoToolsVersion}",
+    ]
+
+    coreDependencies = [
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
+            rxJava               : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitRxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okHttpLogger         : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            archRuntime          : "android.arch.lifecycle:runtime:${archComponentsVersion}",
+            archExtensions       : "android.arch.lifecycle:extensions:${archExtensionsVersion}",
+    ]
+
+    coreTestDependencies = [
+            junit  : "junit:junit:${jUnitVersion}",
+            mockito: "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            assertj: "org.assertj:assertj-core:${assertJVersion}",
+    ]
+
+
+    appDependencies = [
+            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            kotlinReflect : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
+            rxJava        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid     : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            appCompat     : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            design        : "com.android.support:design:${supportLibraryVersion}",
+            archRuntime   : "android.arch.lifecycle:runtime:${archComponentsVersion}",
+            archExtensions: "android.arch.lifecycle:extensions:${archExtensionsVersion}",
+    ]
+
+    appTestDependencies = [
+            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            junit         : "junit:junit:${jUnitVersion}",
+            assertj       : "org.assertj:assertj-core:${assertJVersion}",
+            roboletric    : "org.robolectric:robolectric:${roboletricVersion}",
+            espressoRunner: "com.android.support.test:runner:${espressoToolsVersion}",
+            espressoRules : "com.android.support.test:rules:${espressoToolsVersion}",
+            espressoCore  : "com.android.support.test.espresso:espresso-core:${espressoCoreVersion}",
+            barista       : "com.schibsted.spain:barista:${baristaVersion}"
+    ]
+
+}
