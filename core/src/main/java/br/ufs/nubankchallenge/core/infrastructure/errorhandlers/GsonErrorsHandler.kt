@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.infrastructure
+package br.ufs.nubankchallenge.core.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import com.google.gson.JsonIOException

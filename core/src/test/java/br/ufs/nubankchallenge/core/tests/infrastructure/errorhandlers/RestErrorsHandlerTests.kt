@@ -1,15 +1,12 @@
-package br.ufs.nubankchallenge.core.tests.infrastructure
+package br.ufs.nubankchallenge.core.tests.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
-import br.ufs.nubankchallenge.core.infrastructure.RestErrorsHandler
+import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.RestErrorsHandler
+import br.ufs.nubankchallenge.core.tests.newHttpError
 import io.reactivex.Observable
-import okhttp3.MediaType
-import okhttp3.ResponseBody
 import org.junit.Before
 import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Response
 
 /**
  *
@@ -54,10 +51,4 @@ class RestErrorsHandlerTests {
                 .assertError { throwable -> throwable == npe }
     }
 
-    private fun newHttpError(statusCode: Int, errorMessage: String): HttpException {
-        val jsonMediaType = MediaType.parse("application/json")
-        val body = ResponseBody.create(jsonMediaType, errorMessage)
-        val response: Response<String> = Response.error(statusCode, body)
-        return HttpException(response)
-    }
 }

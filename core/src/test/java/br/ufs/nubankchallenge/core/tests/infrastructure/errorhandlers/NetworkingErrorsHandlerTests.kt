@@ -1,8 +1,8 @@
-package br.ufs.nubankchallenge.core.tests.infrastructure
+package br.ufs.nubankchallenge.core.tests.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.*
-import br.ufs.nubankchallenge.core.infrastructure.NetworkingErrorsHandler
+import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.NetworkingErrorsHandler
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test

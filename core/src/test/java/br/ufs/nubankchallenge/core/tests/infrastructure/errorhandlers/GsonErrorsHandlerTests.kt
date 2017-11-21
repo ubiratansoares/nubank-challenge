@@ -1,7 +1,7 @@
-package br.ufs.nubankchallenge.core.tests.infrastructure
+package br.ufs.nubankchallenge.core.tests.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
-import br.ufs.nubankchallenge.core.infrastructure.GsonErrorsHandler
+import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.GsonErrorsHandler
 import com.google.gson.JsonIOException
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
@@ -27,7 +27,7 @@ class GsonErrorsHandlerTests {
 
         broken.compose(gsonErrorHandler)
                 .test()
-                .assertError({ error -> error is InfrastructureError.UndesiredResponse })
+                .assertError { error -> error is InfrastructureError.UndesiredResponse }
     }
 
     @Test fun `should handle json sintax error`() {
@@ -35,8 +35,7 @@ class GsonErrorsHandlerTests {
 
         broken.compose(gsonErrorHandler)
                 .test()
-                .assertError({ error -> error is InfrastructureError.UndesiredResponse })
-
+                .assertError { error -> error is InfrastructureError.UndesiredResponse }
     }
 
     @Test fun `sould handle json parsing error`() {
@@ -44,7 +43,7 @@ class GsonErrorsHandlerTests {
 
         broken.compose(gsonErrorHandler)
                 .test()
-                .assertError({ error -> error is InfrastructureError.UndesiredResponse })
+                .assertError { error -> error is InfrastructureError.UndesiredResponse }
     }
 
     @Test fun `should not handle other errors`() {
