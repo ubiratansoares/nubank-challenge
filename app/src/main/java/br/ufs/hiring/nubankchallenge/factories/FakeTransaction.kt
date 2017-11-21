@@ -9,12 +9,13 @@ import java.util.*
  *
  */
 
-object FakeTransactionFactory {
+object FakeTransaction {
 
     operator fun invoke(): PurchaseTransaction {
+
         val randomId = UUID.randomUUID().toString()
         val randomVenue = venues[randomizer.nextInt(venues.size)]
-        val purchaseValue = "R$ " + (randomizer.nextInt(1000) + 100) + ",00"
+        val randomValue = "R$ " + (randomizer.nextInt(1000) + 100) + ",00"
 
         val randomDateTime =
                 "${randomizer.nextInt(20) + 10}" +
@@ -23,10 +24,10 @@ object FakeTransactionFactory {
                         "${randomizer.nextInt(50) + 10}"
 
         return PurchaseTransaction(
-                id = randomId,
+                transactionId = randomId,
                 venueName = randomVenue,
                 formattedDateTime = randomDateTime,
-                formattedValue = purchaseValue
+                formattedValue = randomValue
         )
     }
 
@@ -35,8 +36,7 @@ object FakeTransactionFactory {
             "Extra Hipermercados",
             "Mercadinho Meteoro",
             "Supermercados Yamauchi",
-            "Praça dos Pães"
-
+            "Chama Supermercados"
     )
 
     private val randomizer = Random()

@@ -7,7 +7,7 @@ package br.ufs.nubankchallenge.core
  */
 
 data class PurchaseTransaction(
-        val id: String,
+        val transactionId: String,
         val venueName: String,
         val formattedDateTime: String,
         val formattedValue: String

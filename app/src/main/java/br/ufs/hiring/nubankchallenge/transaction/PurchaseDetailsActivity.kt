@@ -1,8 +1,8 @@
-package br.ufs.hiring.nubankchallenge
+package br.ufs.hiring.nubankchallenge.transaction
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import br.ufs.hiring.nubankchallenge.factories.FakeTransactionFactory
+import br.ufs.hiring.nubankchallenge.factories.FakeTransaction
 import kotlinx.android.synthetic.main.activity_purchase_details.*
 import nubank.hiring.ufs.br.nubankchallenge.R
 
@@ -15,7 +15,7 @@ class PurchaseDetailsActivity : AppCompatActivity() {
     }
 
     private fun fillWithFakeData() {
-        val transaction = FakeTransactionFactory()
+        val transaction = FakeTransaction()
 
         labelPurchaseDateTime.text = transaction.formattedDateTime
         labelVenueName.text = transaction.venueName
