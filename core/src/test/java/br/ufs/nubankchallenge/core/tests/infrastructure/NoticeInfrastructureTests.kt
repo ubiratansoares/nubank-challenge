@@ -1,17 +1,24 @@
 package br.ufs.nubankchallenge.core.tests.infrastructure
 
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.infrastructure.NoticeInfrastructure
 import br.ufs.nubankchallenge.core.infrastructure.mapping.chargebackNoticeFromPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload
+import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
 import br.ufs.nubankchallenge.core.tests.util.FileFromResources
 import br.ufs.nubankchallenge.core.tests.util.Fixtures
 import br.ufs.nubankchallenge.core.tests.util.fromJson
 import com.google.gson.Gson
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import io.reactivex.Observable
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import java.io.IOException
 
 /**
  *
@@ -52,5 +59,39 @@ class NoticeInfrastructureTests {
                 .assertNoErrors()
                 .assertComplete()
                 .assertValue { it == expected }
+    }
+
+    @Test fun `should integrate handling error 4XY`() {
+
+        server.enqueue(MockResponse().setResponseCode(400))
+
+        infrastructure.execute()
+                .test()
+                .assertError { it == InfrastructureError.UndesiredResponse }
+    }
+
+    @Test fun `should integrate handling error 5XY`() {
+
+        server.enqueue(MockResponse().setResponseCode(503))
+
+        infrastructure.execute()
+                .test()
+                .assertError { it == InfrastructureError.RemoteSystemDown }
+    }
+
+    @Test fun `should integrate handling networking issue`() {
+
+        val networkingError = Observable.error<ChargebackNoticePayload> {
+            IOException("Canceled")
+        }
+
+        val mockedWebService = mock<NubankWebService> {
+            on { chargebackNotice() } doReturn networkingError
+        }
+
+        NoticeInfrastructure(mockedWebService)
+                .execute()
+                .test()
+                .assertError { it == NetworkingIssue.ConnectionSpike }
     }
 }
