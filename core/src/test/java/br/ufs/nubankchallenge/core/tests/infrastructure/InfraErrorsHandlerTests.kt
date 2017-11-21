@@ -2,7 +2,7 @@ package br.ufs.nubankchallenge.core.tests.infrastructure
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
-import br.ufs.nubankchallenge.core.infrastructure.InfraErrorsHandler
+import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandler
 import br.ufs.nubankchallenge.core.tests.newHttpError
 import com.google.gson.JsonSyntaxException
 import io.reactivex.Observable

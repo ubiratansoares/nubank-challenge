@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.infrastructure
+package br.ufs.nubankchallenge.core.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.GsonErrorsHandler
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.NetworkingErrorsHandler
