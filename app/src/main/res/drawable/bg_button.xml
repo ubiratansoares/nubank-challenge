@@ -1,0 +1,4 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/gray_background">
+    <item android:drawable="@drawable/layerlist_rectangle_upperline"></item>
+</ripple>
