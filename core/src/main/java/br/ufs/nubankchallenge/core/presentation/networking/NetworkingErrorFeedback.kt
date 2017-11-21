@@ -1,6 +1,6 @@
 package br.ufs.nubankchallenge.core.presentation.networking
 
-import br.ufs.nubankchallenge.core.domain.NetworkingIssue
+import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import io.reactivex.*
 
 /**

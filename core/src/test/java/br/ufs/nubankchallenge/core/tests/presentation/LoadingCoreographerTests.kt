@@ -1,6 +1,6 @@
 package br.ufs.nubankchallenge.core.tests.presentation
 
-import br.ufs.nubankchallenge.core.domain.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingCoreographer
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.tests.SilentObserver

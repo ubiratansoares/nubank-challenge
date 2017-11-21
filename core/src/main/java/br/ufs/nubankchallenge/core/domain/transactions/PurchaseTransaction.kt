@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.domain
+package br.ufs.nubankchallenge.core.domain.transactions
 
 /**
  *

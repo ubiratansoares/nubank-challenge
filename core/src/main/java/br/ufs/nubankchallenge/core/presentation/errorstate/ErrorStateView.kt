@@ -1,6 +1,6 @@
 package br.ufs.nubankchallenge.core.presentation.errorstate
 
-import br.ufs.nubankchallenge.core.domain.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import io.reactivex.functions.Action
 
 /**

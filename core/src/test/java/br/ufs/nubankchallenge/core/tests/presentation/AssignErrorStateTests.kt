@@ -1,6 +1,6 @@
 package br.ufs.nubankchallenge.core.tests.presentation
 
-import br.ufs.nubankchallenge.core.domain.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.presentation.errorstate.AssignErrorState
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.tests.SilentObserver

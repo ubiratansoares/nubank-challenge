@@ -1,7 +1,7 @@
 package br.ufs.nubankchallenge.core.tests.presentation
 
-import br.ufs.nubankchallenge.core.domain.InfrastructureError
-import br.ufs.nubankchallenge.core.domain.NetworkingIssue
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorFeedback
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
 import br.ufs.nubankchallenge.core.tests.SilentObserver
