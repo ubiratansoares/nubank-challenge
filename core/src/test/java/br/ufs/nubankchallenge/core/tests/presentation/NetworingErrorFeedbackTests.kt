@@ -60,7 +60,7 @@ class NetworingErrorFeedbackTests {
 
         Observable.error<Any>(otherError)
                 .compose(networkingFeedback)
-                .subscribe()
+                .subscribe(SilentObserver)
 
         verify(report, never()).run()
     }
