@@ -31,7 +31,7 @@ class NetworingErrorFeedbackTests {
         report = mock()
 
         val view = object : NetworkingErrorView {
-            override fun onNetworkingError(issue: NetworkingIssue): Action {
+            override fun reportNetworkingError(issue: NetworkingIssue): Action {
                 return report
             }
         }

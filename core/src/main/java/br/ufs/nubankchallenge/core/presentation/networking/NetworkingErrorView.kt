@@ -11,6 +11,6 @@ import io.reactivex.functions.Action
 
 interface NetworkingErrorView {
 
-    fun onNetworkingError(issue: NetworkingIssue): Action
+    fun reportNetworkingError(issue: NetworkingIssue): Action
 
 }

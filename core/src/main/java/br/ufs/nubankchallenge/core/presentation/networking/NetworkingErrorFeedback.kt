@@ -20,7 +20,7 @@ class NetworkingErrorFeedback(
     private fun handleIfNetworkingError(throwable: Throwable): Observable<Any> {
 
         if (passiveView is NetworkingErrorView && throwable is NetworkingIssue) {
-            Completable.fromAction(passiveView.onNetworkingError(throwable))
+            Completable.fromAction(passiveView.reportNetworkingError(throwable))
                     .subscribeOn(uiScheduler)
                     .subscribe()
         }
