@@ -58,6 +58,7 @@ dependencies {
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
     testImplementation testDependencies.assertj
+    testImplementation testDependencies.mockWebServer
 }
 
 configurations.all {
