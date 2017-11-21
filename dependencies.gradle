@@ -17,7 +17,6 @@ ext {
     kotlinVersion = '1.1.51'
 
     //Libraries
-    gsonVersion = "2.7"
     okHttpVersion = '3.8.0'
     retrofitVersion = '2.3.0'
     rxJavaVersion = '2.1.6'
@@ -59,6 +58,7 @@ ext {
             junit  : "junit:junit:${jUnitVersion}",
             mockito: "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
             assertj: "org.assertj:assertj-core:${assertJVersion}",
+            mockWebServer: "com.squareup.okhttp3:mockwebserver:${okHttpVersion}"
     ]
 
 

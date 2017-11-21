@@ -1,9 +1,9 @@
-package br.ufs.nubankchallenge.core.tests.infrastructure
+package br.ufs.nubankchallenge.core.tests.infrastructure.errorhandlers
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandler
-import br.ufs.nubankchallenge.core.tests.newHttpError
+import br.ufs.nubankchallenge.core.tests.util.Fixtures
 import com.google.gson.JsonSyntaxException
 import io.reactivex.Observable
 import org.junit.Before
@@ -33,7 +33,7 @@ class InfraErrorsHandlerTests {
 
     @Test fun `should catch rest errors`() {
         val responseBody = "{\"message\":\"Internal server error\"}"
-        val error = newHttpError(503, responseBody)
+        val error = Fixtures.httpError(503, responseBody)
         val internalServer: Observable<String> = Observable.error(error)
 
         internalServer.compose(handler)

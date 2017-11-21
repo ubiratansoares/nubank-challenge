@@ -13,7 +13,7 @@ public class ChargebackNoticePayload {
     @SerializedName("primary_action") public ActionPayload primaryAction;
     @SerializedName("secondary_action") public ActionPayload secondaryAction;
 
-    static class ActionPayload {
+    public static class ActionPayload {
         public String title;
         public String action;
     }

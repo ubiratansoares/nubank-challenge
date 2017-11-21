@@ -6,7 +6,7 @@ import br.ufs.nubankchallenge.core.presentation.BehaviorsPresenter
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
-import br.ufs.nubankchallenge.core.tests.SilentObserver
+import br.ufs.nubankchallenge.core.tests.util.SilentObserver
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never

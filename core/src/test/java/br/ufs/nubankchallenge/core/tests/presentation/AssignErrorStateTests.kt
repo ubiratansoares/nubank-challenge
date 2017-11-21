@@ -3,7 +3,7 @@ package br.ufs.nubankchallenge.core.tests.presentation
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.presentation.errorstate.AssignErrorState
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
-import br.ufs.nubankchallenge.core.tests.SilentObserver
+import br.ufs.nubankchallenge.core.tests.util.SilentObserver
 import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never

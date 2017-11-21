@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.tests
+package br.ufs.nubankchallenge.core.tests.util
 
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

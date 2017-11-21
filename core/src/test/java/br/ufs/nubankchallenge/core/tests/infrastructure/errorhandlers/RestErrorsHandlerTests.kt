@@ -3,7 +3,7 @@ package br.ufs.nubankchallenge.core.tests.infrastructure.errorhandlers
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.RestErrorsHandler
-import br.ufs.nubankchallenge.core.tests.newHttpError
+import br.ufs.nubankchallenge.core.tests.util.Fixtures
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -23,7 +23,7 @@ class RestErrorsHandlerTests {
 
     @Test fun `should handle internal server error`() {
         val responseBody = "{\"message\":\"Internal server error\"}"
-        val error = newHttpError(503, responseBody)
+        val error = Fixtures.httpError(503, responseBody)
         val internalServer: Observable<String> = Observable.error(error)
 
         internalServer.compose(handler)
@@ -33,7 +33,7 @@ class RestErrorsHandlerTests {
 
     @Test fun `should handle undesired returns`() {
         val responseBody = "{\"message\":\"You failed\"}"
-        val error = newHttpError(400, responseBody)
+        val error = Fixtures.httpError(400, responseBody)
         val badRequest: Observable<String> = Observable.error(error)
 
         badRequest.compose(handler)
