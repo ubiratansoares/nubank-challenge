@@ -94,4 +94,34 @@ class NoticeInfrastructureTests {
                 .test()
                 .assertError { it == NetworkingIssue.ConnectionSpike }
     }
+
+    @Test fun `should integrate handling broken response`() {
+
+        val json = FileFromResources("chargeback_notice_broken_200OK.json")
+
+        server.enqueue(
+                MockResponse()
+                        .setResponseCode(200)
+                        .setBody(json)
+        )
+
+        infrastructure.execute()
+                .test()
+                .assertError { it == InfrastructureError.UndesiredResponse }
+    }
+
+    @Test fun `should integrate handling missing mandatory field`() {
+
+        val json = FileFromResources("chargeback_notice_missing_200OK.json")
+
+        server.enqueue(
+                MockResponse()
+                        .setResponseCode(200)
+                        .setBody(json)
+        )
+
+        infrastructure.execute()
+                .test()
+                .assertError { it == InfrastructureError.UndesiredResponse }
+    }
 }

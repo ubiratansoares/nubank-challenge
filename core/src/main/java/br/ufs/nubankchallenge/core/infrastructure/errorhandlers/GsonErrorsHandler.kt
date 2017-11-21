@@ -4,6 +4,7 @@ import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredRe
 import com.google.gson.JsonIOException
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
+import com.google.gson.stream.MalformedJsonException
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
@@ -26,6 +27,7 @@ class GsonErrorsHandler : ObservableTransformer<Any, Any> {
 
     private fun isErrorFromGson(throwable: Throwable): Boolean {
         return when (throwable) {
+            is MalformedJsonException -> true
             is JsonIOException -> true
             is JsonSyntaxException -> true
             is JsonParseException -> true
