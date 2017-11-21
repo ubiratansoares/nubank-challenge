@@ -6,7 +6,7 @@
 
     <item android:gravity="top">
         <shape android:shape="rectangle">
-            <size android:height="1px" />
+            <size android:height="1dp" />
             <solid android:color="@color/gray_divider" />
         </shape>
     </item>
