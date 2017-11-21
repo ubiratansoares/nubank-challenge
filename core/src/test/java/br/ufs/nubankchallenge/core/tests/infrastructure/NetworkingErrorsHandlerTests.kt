@@ -2,7 +2,7 @@ package br.ufs.nubankchallenge.core.tests.infrastructure
 
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.*
-import br.ufs.nubankchallenge.core.infrastructure.NetworkingErrorHandler
+import br.ufs.nubankchallenge.core.infrastructure.NetworkingErrorsHandler
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -15,12 +15,12 @@ import java.net.UnknownHostException
  * Created by @ubiratanfsoares
  *
  */
-class NetworkingErrorHandlerTests {
+class NetworkingErrorsHandlerTests {
 
-    lateinit var handler: NetworkingErrorHandler
+    lateinit var handler: NetworkingErrorsHandler
 
     @Before fun `before each test`() {
-        handler = NetworkingErrorHandler()
+        handler = NetworkingErrorsHandler()
     }
 
     @Test fun `should handle internet unavailable`() {

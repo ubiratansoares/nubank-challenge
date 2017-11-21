@@ -14,7 +14,7 @@ import java.net.UnknownHostException
  *
  */
 
-class NetworkingErrorHandler : ObservableTransformer<Any, Any> {
+class NetworkingErrorsHandler : ObservableTransformer<Any, Any> {
 
     override fun apply(upstream: Observable<Any>): ObservableSource<Any> {
         return upstream.onErrorResumeNext(this::handleIfNetworkingError)

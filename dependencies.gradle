@@ -51,7 +51,6 @@ ext {
             retrofitRxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             okHttpLogger         : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
-            rxAndroid            : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             archRuntime          : "android.arch.lifecycle:runtime:${archComponentsVersion}",
             archExtensions       : "android.arch.lifecycle:extensions:${archExtensionsVersion}",
     ]

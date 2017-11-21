@@ -48,7 +48,10 @@ dependencies {
     implementation dependencies.kotlin
     implementation dependencies.kotlinReflect
     implementation dependencies.rxJava
-    implementation dependencies.rxAndroid
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitRxJavaAdapter
+    implementation dependencies.retrofitGsonConverter
+    implementation dependencies.okHttpLogger
     implementation dependencies.archRuntime
     implementation dependencies.archExtensions
 
