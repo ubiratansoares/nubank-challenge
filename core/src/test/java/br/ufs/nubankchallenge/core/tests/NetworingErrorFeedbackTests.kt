@@ -49,7 +49,7 @@ class NetworingErrorFeedbackTests {
     @Test fun `should not report networking error when flow is empty`() {
         Observable.empty<Any>()
                 .compose(networkingFeedback)
-                .subscribe(SilentObserver)
+                .subscribe()
 
         verify(report, never()).run()
     }
@@ -59,7 +59,7 @@ class NetworingErrorFeedbackTests {
 
         Observable.error<Any>(otherError)
                 .compose(networkingFeedback)
-                .subscribe(SilentObserver)
+                .subscribe()
 
         verify(report, never()).run()
     }
