@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Nubank Challenge</string>
+    <string name="btn_report_purchase">Reportar</string>
 </resources>

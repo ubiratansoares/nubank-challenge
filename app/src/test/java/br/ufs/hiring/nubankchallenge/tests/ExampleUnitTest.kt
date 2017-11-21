@@ -1,4 +1,4 @@
-package nubank.hiring.ufs.br.nubankchallenge
+package br.ufs.hiring.nubankchallenge.tests
 
 import org.junit.Test
 

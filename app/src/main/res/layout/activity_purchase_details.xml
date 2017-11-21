@@ -1,5 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -32,30 +33,33 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/labelPurchaseDateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="14 NOV 2017, 20:58 " />
+                tools:text="14 NOV 2017, 20:58 " />
 
             <TextView
+                android:id="@+id/labelVenueName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/sixteen_dips"
                 android:gravity="center"
-                android:text="Sonda Supermercados"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="26dp" />
+                android:textSize="26dp"
+                android:textStyle="bold"
+                tools:text="Sonda Supermercados" />
 
             <TextView
+                android:id="@+id/labelFormattedValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="R$133,40"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                tools:text="R$133,40" />
 
         </LinearLayout>
 
@@ -75,9 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_button"
-        android:gravity="center"
         android:padding="@dimen/twentyfour_dips"
-        android:text="Reportar"
+        android:text="@string/btn_report_purchase"
         android:textColor="@color/colorAccent"
         app:layout_anchor="@id/details_container"
         app:layout_anchorGravity="bottom|center" />

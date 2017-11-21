@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/NuChallenge.NoActionBar">
 
-        <activity android:name=".PurchaseDetailsActivity">
+        <activity android:name="br.ufs.hiring.nubankchallenge.PurchaseDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
