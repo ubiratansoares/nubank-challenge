@@ -1,6 +1,6 @@
 package br.ufs.hiring.nubankchallenge.factories
 
-import br.ufs.nubankchallenge.core.PurchaseTransaction
+import br.ufs.nubankchallenge.core.domain.PurchaseTransaction
 import java.util.*
 
 /**
