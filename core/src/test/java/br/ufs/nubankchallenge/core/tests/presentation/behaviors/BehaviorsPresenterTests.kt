@@ -1,8 +1,8 @@
-package br.ufs.nubankchallenge.core.tests.presentation
+package br.ufs.nubankchallenge.core.tests.presentation.behaviors
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
-import br.ufs.nubankchallenge.core.presentation.BehaviorsPresenter
+import br.ufs.nubankchallenge.core.presentation.behaviors.BehaviorsPresenter
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView

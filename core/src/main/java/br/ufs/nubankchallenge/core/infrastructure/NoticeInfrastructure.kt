@@ -1,7 +1,7 @@
 package br.ufs.nubankchallenge.core.infrastructure
 
-import br.ufs.nubankchallenge.core.domain.chargeback.ChargebackNotice
-import br.ufs.nubankchallenge.core.domain.chargeback.RetrieveNotice
+import br.ufs.nubankchallenge.core.domain.notice.ChargebackNotice
+import br.ufs.nubankchallenge.core.domain.notice.RetrieveNotice
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandler
 import br.ufs.nubankchallenge.core.infrastructure.mapping.chargebackNoticeFromPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload

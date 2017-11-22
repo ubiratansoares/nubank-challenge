@@ -38,6 +38,12 @@ android {
         disable 'InvalidPackage'
         disable 'OldTargetApi'
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -59,6 +65,7 @@ dependencies {
     testImplementation testDependencies.mockito
     testImplementation testDependencies.assertj
     testImplementation testDependencies.mockWebServer
+    testImplementation testDependencies.roboletric
 }
 
 configurations.all {

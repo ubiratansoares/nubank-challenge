@@ -58,6 +58,7 @@ ext {
             junit  : "junit:junit:${jUnitVersion}",
             mockito: "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
             assertj: "org.assertj:assertj-core:${assertJVersion}",
+            roboletric    : "org.robolectric:robolectric:${roboletricVersion}",
             mockWebServer: "com.squareup.okhttp3:mockwebserver:${okHttpVersion}"
     ]
 

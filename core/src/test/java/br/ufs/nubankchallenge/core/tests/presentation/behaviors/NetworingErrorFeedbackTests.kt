@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.tests.presentation
+package br.ufs.nubankchallenge.core.tests.presentation.behaviors
 
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue

@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.domain.chargeback
+package br.ufs.nubankchallenge.core.domain.notice
 
 /**
  *

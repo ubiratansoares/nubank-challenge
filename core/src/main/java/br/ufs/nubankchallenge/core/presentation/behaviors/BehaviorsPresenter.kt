@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.presentation
+package br.ufs.nubankchallenge.core.presentation.behaviors
 
 import br.ufs.nubankchallenge.core.presentation.errorstate.AssignErrorState
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingCoreographer
