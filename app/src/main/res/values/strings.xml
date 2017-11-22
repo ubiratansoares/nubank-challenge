@@ -11,4 +11,6 @@
     <string name="snacktext_internet_connection">Verifique sua conexão Wifi ou móvel</string>
     <string name="snacktext_servers_down">Devemos estar de volta em alguns instantes</string>
     <string name="snacktext_undesired_response">Repita essa operação mais tarde\n</string>
+    <string name="emtpy_string"/>
+
 </resources>

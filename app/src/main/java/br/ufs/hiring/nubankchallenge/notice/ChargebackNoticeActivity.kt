@@ -41,7 +41,11 @@ class ChargebackNoticeActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chargeback_notice)
-        showNotice()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        retrieveNotice()
     }
 
     override fun showLoading(): Action {
@@ -72,14 +76,10 @@ class ChargebackNoticeActivity : AppCompatActivity(),
         }
     }
 
-    private fun showFeedback(error: Throwable) {
-        feedbackContainer.visibility = View.VISIBLE
-        feedbackContainer.setState(error)
-    }
-
     override fun reportNetworkingError(issue: NetworkingIssue): Action {
+        showFeedback(issue)
+
         return Action {
-            showFeedback(issue)
             callToAction(
                     R.string.snacktext_internet_connection,
                     { forceScreenUpdate() }
@@ -88,10 +88,15 @@ class ChargebackNoticeActivity : AppCompatActivity(),
     }
 
     override fun hideErrorState(): Action {
-        return Action { feedbackContainer.visibility = View.GONE }
+        return Action { clearErrorFeedback() }
     }
 
-    private fun showNotice(forceUpdate: Boolean = false) {
+    private fun showFeedback(error: Throwable) {
+        feedbackContainer.visibility = View.VISIBLE
+        feedbackContainer.setState(error)
+    }
+
+    private fun retrieveNotice(forceUpdate: Boolean = false) {
         subscription = screen.retrieveNotice(forceUpdate)
                 .compose(presenter)
                 .subscribe(
@@ -101,25 +106,25 @@ class ChargebackNoticeActivity : AppCompatActivity(),
                 )
     }
 
-    private fun fillNotice(it: NoticeScreenModel) {
+    fun fillNotice(model: NoticeScreenModel) {
         showNoticeViews()
-        proceedButton.text = it.proceedButtonLabel
-        cancelButton.text = it.cancelButtonLabel
-        noticeTitleLabel.text = it.title
-        noticeDescriptionLabel.text = it.formattedDescription
+        proceedButton.text = model.proceedButtonLabel
+        cancelButton.text = model.cancelButtonLabel
+        noticeTitleLabel.text = model.title
+        noticeDescriptionLabel.text = model.formattedDescription
 
         proceedButton.setOnClickListener { proceedToChargeback() }
         cancelButton.setOnClickListener { finish() }
-    }
-
-    private fun proceedToChargeback() {
-
     }
 
     private fun showNoticeViews() {
         appbar.visibility = View.VISIBLE
         noticeDescriptionLabel.visibility = View.VISIBLE
         buttonsContainer.visibility = View.VISIBLE
+    }
+
+    private fun proceedToChargeback() {
+
     }
 
     private fun callToAction(
@@ -135,11 +140,12 @@ class ChargebackNoticeActivity : AppCompatActivity(),
 
     private fun forceScreenUpdate() {
         releaseSubscriptions()
-        resetErrorContainer()
-        showNotice(forceUpdate = true)
+        clearErrorFeedback()
+        retrieveNotice(forceUpdate = true)
     }
 
-    private fun resetErrorContainer() {
+    private fun clearErrorFeedback() {
+        feedbackContainer.visibility = View.GONE
         feedbackContainer.reset()
     }
 

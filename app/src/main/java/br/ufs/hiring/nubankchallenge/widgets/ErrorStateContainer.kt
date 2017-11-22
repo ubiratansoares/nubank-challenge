@@ -4,7 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import br.ufs.hiring.nubankchallenge.R
-import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import kotlinx.android.synthetic.main.view_error_feedback.view.*
 
@@ -24,14 +25,14 @@ class ErrorStateContainer @JvmOverloads constructor(
 
         when (error) {
 
-            is InfrastructureError.UndesiredResponse -> {
+            is UndesiredResponse -> {
                 feedback = Feedback(
                         R.drawable.img_undesired_response,
                         R.string.error_undesired_response
                 )
             }
 
-            is InfrastructureError.RemoteSystemDown -> {
+            is RemoteSystemDown -> {
                 feedback = Feedback(
                         R.drawable.img_servers_down,
                         R.string.error_server_down
@@ -58,7 +59,7 @@ class ErrorStateContainer @JvmOverloads constructor(
 
     fun reset() {
         feedback = Feedback(0, 0)
-        errorImage.setImageResource(feedback.image)
+        errorImage.setImageResource(0)
         errorMessage.text = ""
     }
 }

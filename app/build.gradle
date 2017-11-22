@@ -4,12 +4,15 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    compileSdkVersion 26
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["compileSDK"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
 
     defaultConfig {
+        minSdkVersion globalConfiguration["minSDK"]
+        targetSdkVersion globalConfiguration["targetSDK"]
         applicationId "nubank.hiring.ufs.br.nubankchallenge"
-        minSdkVersion 21
-        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,6 +22,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -50,7 +59,7 @@ dependencies {
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation testDependencies.espressoRules
     androidTestImplementation testDependencies.espressoRunner
-    androidTestImplementation (testDependencies.barista) {
+    androidTestImplementation(testDependencies.barista) {
         exclude group: 'com.android.support'
     }
 }
