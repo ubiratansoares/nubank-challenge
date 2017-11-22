@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinGradlePlugin = '1.1.51'
+    ext.kotlinGradlePlugin = '1.1.60'
     ext.buildTools = '3.0.1'
 
     repositories {
