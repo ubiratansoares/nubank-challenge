@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nubank.hiring.ufs.br.nubankchallenge">
+    package="br.ufs.hiring.nubankchallenge">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="false"
@@ -9,12 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/NuChallenge.NoActionBar">
 
-        <activity android:name="br.ufs.hiring.nubankchallenge.transaction.PurchaseDetailsActivity">
+        <activity android:name=".transaction.PurchaseDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".notice.ChargebackNoticeActivity"/>
     </application>
+
 
 </manifest>

@@ -38,6 +38,10 @@ dependencies {
     implementation dependencies.design
     implementation dependencies.archRuntime
     implementation dependencies.archExtensions
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitRxJavaAdapter
+    implementation dependencies.retrofitGsonConverter
+    implementation dependencies.okHttpLogger
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.assertj

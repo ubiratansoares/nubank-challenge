@@ -55,23 +55,27 @@ ext {
     ]
 
     coreTestDependencies = [
-            junit  : "junit:junit:${jUnitVersion}",
-            mockito: "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
-            assertj: "org.assertj:assertj-core:${assertJVersion}",
-            roboletric    : "org.robolectric:robolectric:${roboletricVersion}",
+            junit        : "junit:junit:${jUnitVersion}",
+            mockito      : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            assertj      : "org.assertj:assertj-core:${assertJVersion}",
+            roboletric   : "org.robolectric:robolectric:${roboletricVersion}",
             mockWebServer: "com.squareup.okhttp3:mockwebserver:${okHttpVersion}"
     ]
 
 
     appDependencies = [
-            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
-            kotlinReflect : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
-            rxJava        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxAndroid     : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            appCompat     : "com.android.support:appcompat-v7:${supportLibraryVersion}",
-            design        : "com.android.support:design:${supportLibraryVersion}",
-            archRuntime   : "android.arch.lifecycle:runtime:${archComponentsVersion}",
-            archExtensions: "android.arch.lifecycle:extensions:${archExtensionsVersion}",
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
+            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitRxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okHttpLogger         : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            rxJava               : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            appCompat            : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            design               : "com.android.support:design:${supportLibraryVersion}",
+            archRuntime          : "android.arch.lifecycle:runtime:${archComponentsVersion}",
+            archExtensions       : "android.arch.lifecycle:extensions:${archExtensionsVersion}",
     ]
 
     appTestDependencies = [

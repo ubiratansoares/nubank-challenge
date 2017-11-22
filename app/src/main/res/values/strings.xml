@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Nubank Challenge</string>
     <string name="btn_report_purchase">Reportar</string>
+
+    <string name="error_server_down">Há um problema com nossos servidores, estamos trabalhando para corrigí-lo</string>
+    <string name="error_undesired_response">Houve um erro ao receber as informações, estamos trabalhando para entender o problema</string>
+    <string name="error_internet_connection">Houve um erro de conectividade</string>
+
+    <string name="snackaction_retry">TENTAR NOVAMENTE</string>
+    <string name="snackaction_done">FECHAR</string>
+    <string name="snacktext_internet_connection">Verifique sua conexão Wifi ou móvel</string>
+    <string name="snacktext_servers_down">Devemos estar de volta em alguns instantes</string>
+    <string name="snacktext_undesired_response">Repita essa operação mais tarde\n</string>
 </resources>

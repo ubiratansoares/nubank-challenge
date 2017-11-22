@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4a148c</color>
+    <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#4a148c</color>
     <color name="colorAccent">@color/purple</color>
 
@@ -8,6 +8,7 @@
     <color name="purple_transparent">#226E2B77</color>
     <color name="gray_background">#EEEEEE</color>
     <color name="gray_divider">#EEEEEE</color>
+    <color name="gray_disabled">#CCCCCC</color>
     <color name="gray_call_to_action">#808191</color>
 
 </resources>

@@ -1,5 +1,6 @@
 package br.ufs.nubankchallenge.core.infrastructure
 
+import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.notice.ChargebackNotice
 import br.ufs.nubankchallenge.core.domain.notice.RetrieveNotice
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandler
@@ -21,6 +22,7 @@ class NoticeInfrastructure(
         private val ioScheduler: Scheduler = Schedulers.trampoline()) : RetrieveNotice {
 
     override fun execute(): Observable<ChargebackNotice> {
+        return Observable.error(InfrastructureError.UndesiredResponse)
         return webService
                 .chargebackNotice()
                 .subscribeOn(ioScheduler)

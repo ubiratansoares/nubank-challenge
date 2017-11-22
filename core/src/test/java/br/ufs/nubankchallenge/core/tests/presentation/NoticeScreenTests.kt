@@ -37,23 +37,22 @@ class NoticeScreenTests {
     @Test fun `should retrieve new screen state`() {
         val expected = NoticeScreenModel(notice)
 
-        screen.retrieve()
+        screen.retrieveNotice()
                 .test()
                 .assertValue { it == expected }
     }
 
     @Test fun `should replay previous retrieved state`() {
-        screen.retrieve().subscribe(SilentObserver)
-        screen.retrieve().test().assertComplete()
+        screen.retrieveNotice().subscribe(SilentObserver)
+        screen.retrieveNotice().test().assertComplete()
 
         verify(usecase, times(1)).execute()
         verifyNoMoreInteractions(usecase)
     }
 
-
     @Test fun `should refresh when new notice demanded`() {
-        screen.retrieve().subscribe(SilentObserver)
-        screen.retrieve(true).subscribe(SilentObserver)
+        screen.retrieveNotice().subscribe(SilentObserver)
+        screen.retrieveNotice(true).subscribe(SilentObserver)
 
         verify(usecase, times(2)).execute()
         verifyNoMoreInteractions(usecase)
