@@ -4,18 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.reactivex.annotations.Nullable;
+
 /**
  * Created by @ubiratanfsoares
  */
 
 public class ChargebackActionsPayload {
 
-    public String title;
+    @Nullable public String title;
+    @Nullable @SerializedName("comment_hint") public String hint;
+    @Nullable @SerializedName("reason_details") public List<ReasonDetailPayload> reasons;
     public boolean autoblock;
-    @SerializedName("comment_hint") public String hint;
-    @SerializedName("reason_details") public List<ReasonDetailPayload> reasons;
 
-    static class ReasonDetailPayload {
+    public static class ReasonDetailPayload {
         public String id;
         public String title;
     }

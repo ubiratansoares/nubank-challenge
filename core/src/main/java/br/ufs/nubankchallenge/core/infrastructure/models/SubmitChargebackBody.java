@@ -13,9 +13,15 @@ public class SubmitChargebackBody {
     public String comment;
     @SerializedName("reason_details") public List<ReasonDetailBody> details;
 
-    static class ReasonDetailBody {
+    public static class ReasonDetailBody {
+
         public String id;
         public boolean response;
+
+        public ReasonDetailBody(String id, boolean response) {
+            this.id = id;
+            this.response = response;
+        }
     }
 
 }
