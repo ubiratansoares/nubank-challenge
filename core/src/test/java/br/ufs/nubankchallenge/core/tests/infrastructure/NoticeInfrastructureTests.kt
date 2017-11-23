@@ -8,7 +8,7 @@ import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload
 import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
 import br.ufs.nubankchallenge.core.tests.util.FileFromResources
 import br.ufs.nubankchallenge.core.tests.util.Fixtures
-import br.ufs.nubankchallenge.core.infrastructure.fromJson
+import br.ufs.nubankchallenge.core.infrastructure.util.fromJson
 import com.google.gson.Gson
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock

@@ -1,4 +1,4 @@
-package br.ufs.nubankchallenge.core.infrastructure
+package br.ufs.nubankchallenge.core.infrastructure.util
 
 import com.google.gson.Gson
 import kotlin.reflect.KClass
