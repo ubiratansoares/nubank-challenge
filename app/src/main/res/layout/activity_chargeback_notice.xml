@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="4dp"
             android:padding="@dimen/twentyfour_dips"
+            android:visibility="gone"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </android.support.v4.widget.NestedScrollView>
