@@ -76,7 +76,8 @@ class CreditcardSecurityInfrastructureTests {
 
         server.enqueue(
                 MockResponse()
-                        .setResponseCode(201).setBody("{\"status\": \"Ok\"}")
+                        .setResponseCode(201)
+                        .setBody("{\"status\": \"Ok\"}")
         )
 
         infrastructure.unblockSoliction()

@@ -1,0 +1,27 @@
+{
+  "comment_hint": "Nos conte <strong>em detalhes</strong> o que aconteceu com a sua compra em Transaction...",
+  "id": "fraud",
+  "title": "Não reconheço esta compra",
+  "autoblock": true,
+  "reason_details": [
+    {
+      "id": "merchant_recognized",
+      "title": "Reconhece o estabelecimento?"
+    },
+    {
+      "id": "card_in_possession",
+      "title": "Está com o cartão em mãos?"
+    }
+  ],
+  "links": {
+    "block_card": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/card_block"
+    },
+    "unblock_card": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/card_unblock"
+    },
+    "self": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/chargeback"
+    }
+  }
+}

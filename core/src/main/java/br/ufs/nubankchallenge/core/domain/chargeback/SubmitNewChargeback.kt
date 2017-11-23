@@ -11,6 +11,6 @@ import io.reactivex.Observable
 
 interface SubmitNewChargeback {
 
-    fun execute(reclaim: ChargebackReclaim) : Observable<Unit>
+    fun newReclaim(reclaim: ChargebackReclaim) : Observable<Unit>
 
 }

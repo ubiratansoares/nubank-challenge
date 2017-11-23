@@ -11,6 +11,6 @@ import io.reactivex.Observable
 
 interface RetrieveChargebackOptions {
 
-    fun execute(): Observable<ChargebackOptions>
+    fun possibleActions(): Observable<ChargebackOptions>
 
 }

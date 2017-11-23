@@ -24,14 +24,14 @@ class ChargebackInfrastructure(
         private val ioScheduler: Scheduler = Schedulers.trampoline()
 ) : RetrieveChargebackOptions, SubmitNewChargeback {
 
-    override fun execute(reclaim: ChargebackReclaim): Observable<Unit> {
+    override fun newReclaim(reclaim: ChargebackReclaim): Observable<Unit> {
         return webService.submitChargeback(chargebackReclaimToBody(reclaim))
                 .subscribeOn(ioScheduler)
                 .compose(InfraErrorsHandler())
                 .map { Unit }
     }
 
-    override fun execute(): Observable<ChargebackOptions> {
+    override fun possibleActions(): Observable<ChargebackOptions> {
         return webService.chargebackActions()
                 .subscribeOn(ioScheduler)
                 .compose(InfraErrorsHandler())

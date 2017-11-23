@@ -1,0 +1,25 @@
+{
+  "id": "fraud",
+  "autoblock": true,
+  "reason_details": [
+    {
+      "id": "merchant_recognized",
+      "title": "Reconhece o estabelecimento?"
+    },
+    {
+      "id": "card_in_possession",
+      "title": "Está com o cartão em mãos?"
+    }
+  ],
+  "links": {
+    "block_card": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/card_block"
+    },
+    "unblock_card": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/card_unblock"
+    },
+    "self": {
+      "href": "https://nu-mobile-hiring.herokuapp.com/chargeback"
+    }
+  }
+}
