@@ -3,11 +3,12 @@ package br.ufs.hiring.nubankchallenge.factories
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.InternetUnreachable
-import br.ufs.nubankchallenge.core.infrastructure.fromJson
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackActionsPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload
+import br.ufs.nubankchallenge.core.infrastructure.models.OperationResultPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.SubmitChargebackBody
 import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
+import br.ufs.nubankchallenge.core.infrastructure.util.fromJson
 import com.google.gson.Gson
 import io.reactivex.Observable
 
@@ -39,19 +40,18 @@ object FakeWebService : NubankWebService {
         TODO("not implemented")
     }
 
-    override fun blockCard(): Observable<Unit> {
+    override fun blockCard(): Observable<OperationResultPayload> {
         TODO("not implemented")
     }
 
-    override fun unblockCard(): Observable<Unit> {
+    override fun unblockCard(): Observable<OperationResultPayload> {
         TODO("not implemented")
     }
 
-    override fun submitChargeback(body: SubmitChargebackBody): Observable<Unit> {
+    override fun submitChargeback(body: SubmitChargebackBody): Observable<OperationResultPayload> {
         TODO("not implemented")
     }
-
-
+    
     private fun fakeNotice(): Observable<ChargebackNoticePayload> {
         val payload = gson.fromJson(chargebackNoticeResponse(), ChargebackNoticePayload::class)
         return Observable.just(payload)
