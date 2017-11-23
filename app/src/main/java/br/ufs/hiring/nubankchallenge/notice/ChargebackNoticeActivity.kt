@@ -48,6 +48,11 @@ class ChargebackNoticeActivity : AppCompatActivity(),
         retrieveNotice()
     }
 
+    override fun onDestroy() {
+        subscription.dispose()
+        super.onDestroy()
+    }
+
     override fun showLoading(): Action {
         return Action { loadingIndicator.visibility = View.VISIBLE }
     }
