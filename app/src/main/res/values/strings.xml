@@ -13,4 +13,7 @@
     <string name="snacktext_undesired_response">Repita essa operação mais tarde\n</string>
     <string name="emtpy_string"/>
 
+    <string name="message_chargeback_cardblocked">Bloqueamos preventivamente o seu cartão</string>
+    <string name="message_chargeback_cardunblocked">Cartão desbloqueado, recomendamos mantê-lo bloqueado</string>
+
 </resources>

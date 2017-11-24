@@ -2,6 +2,7 @@ package br.ufs.nubankchallenge.core.presentation.chargeback
 
 import android.text.Html
 import android.text.Spanned
+import br.ufs.nubankchallenge.core.R
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
 
@@ -33,11 +34,11 @@ data class ChargebackScreenModel(
         }
 
         private fun updateLockpad(shouldBlock: Boolean,
-                                  actualLockpadState: LockpadState): LockpadState {
+                                  actual: LockpadState): LockpadState {
 
-            return when (actualLockpadState) {
-                is LockedByUser -> actualLockpadState
-                is UnlockedByUser -> actualLockpadState
+            return when (actual) {
+                is LockedByUser -> actual
+                is UnlockedByUser -> actual
                 else -> if (shouldBlock) return LockedBySystem else UnlockedByDefault
             }
         }
@@ -45,11 +46,19 @@ data class ChargebackScreenModel(
 }
 
 sealed class LockpadState(val disclaimerResource: Int, val lockPadImage: Int) {
-    object LockedBySystem : LockpadState(0, 0)
-    object LockedByUser : LockpadState(0, 0)
-    object UnlockedByDefault : LockpadState(1, 1)
-    object UnlockedByUser : LockpadState(1, 1)
+    object LockedBySystem :
+            LockpadState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
+
+    object LockedByUser :
+            LockpadState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
+
+    object UnlockedByDefault :
+            LockpadState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
+
+    object UnlockedByUser :
+            LockpadState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
 }
+
 
 data class ReasonRowModel(
         val id: String,
