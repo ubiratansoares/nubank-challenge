@@ -17,6 +17,7 @@
         app:elevation="0dp"
         android:padding="@dimen/twentyfour_dips"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
+        tools:visibility="visible"
         android:visibility="gone">
 
         <TextView
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="4dp"
             android:padding="@dimen/twentyfour_dips"
+            tools:visibility="visible"
             android:visibility="gone"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -68,6 +70,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_anchor="@id/notice_container"
         app:layout_anchorGravity="bottom|center">
 

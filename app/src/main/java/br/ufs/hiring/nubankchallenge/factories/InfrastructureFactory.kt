@@ -1,5 +1,7 @@
 package br.ufs.hiring.nubankchallenge.factories
 
+import br.ufs.nubankchallenge.core.infrastructure.ChargebackInfrastructure
+import br.ufs.nubankchallenge.core.infrastructure.CreditcardSecurityInfrastrucure
 import br.ufs.nubankchallenge.core.infrastructure.NoticeInfrastructure
 import io.reactivex.schedulers.Schedulers
 
@@ -11,8 +13,13 @@ import io.reactivex.schedulers.Schedulers
 
 object InfrastructureFactory {
 
-    fun notice(): NoticeInfrastructure {
-        return NoticeInfrastructure(WebServiceFactory.webservice, Schedulers.io())
-    }
+    private val worker = Schedulers.io()
+    private val api = WebServiceFactory.webservice
+
+    fun notice() = NoticeInfrastructure(api, worker)
+
+    fun chargeback() = ChargebackInfrastructure(api, worker)
+
+    fun cardBlocker() = CreditcardSecurityInfrastrucure(api, worker)
 
 }

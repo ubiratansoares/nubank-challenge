@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<Switch xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <Switch
-        android:paddingLeft="@dimen/sixteen_dips"
-        android:paddingRight="@dimen/sixteen_dips"
-        android:paddingTop="@dimen/eight_dips"
-        android:paddingBottom="@dimen/eight_dips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Está com o cartão em mãos?"
-        tools:checked="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        />
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/eight_dips"
+    android:paddingLeft="@dimen/sixteen_dips"
+    android:paddingRight="@dimen/sixteen_dips"
+    android:paddingTop="@dimen/eight_dips"
+    android:text="Está com o cartão em mãos?"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    tools:checked="true" />

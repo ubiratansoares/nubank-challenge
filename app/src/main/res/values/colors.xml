@@ -11,5 +11,6 @@
     <color name="gray_disabled">#CCCCCC</color>
     <color name="gray_call_to_action">#808191</color>
     <color name="red_blocked">#D5171B</color>
+    <color name="gray_hint">#999999</color>
 
 </resources>
