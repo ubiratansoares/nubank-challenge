@@ -143,7 +143,7 @@ class ChargebackInfrastructureTests {
                         .setBody("{\"status\": \"Ok\"}")
         )
 
-        infrastructure.withReclaim(reclaim)
+        infrastructure.sendReclaim(reclaim)
                 .test()
                 .assertNoErrors()
                 .assertComplete()

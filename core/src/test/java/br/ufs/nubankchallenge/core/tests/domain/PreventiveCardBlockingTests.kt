@@ -2,9 +2,9 @@ package br.ufs.nubankchallenge.core.tests.domain
 
 import br.ufs.nubankchallenge.core.domain.chargeback.CreditCardSecurity
 import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
-import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.*
+import br.ufs.nubankchallenge.core.tests.util.Fixtures
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Observable
 import org.junit.Before
@@ -19,14 +19,9 @@ import org.junit.Test
 
 class PreventiveCardBlockingTests {
 
-    val blockNotForced = ChargebackOptions(
-            "Não reconheço essa compra",
-            rawCommentHint = "Descreva o que aconteceu",
-            shouldBlockCreditcard = false,
-            possibleReasons = emptyList()
-    )
+    val blockNotForced = Fixtures.chargebackOptions(blockCard = false)
 
-    val blockNeeded = blockNotForced.copy(shouldBlockCreditcard = true)
+    val blockNeeded = Fixtures.chargebackOptions(blockCard = true)
 
     lateinit var blockPreventively: PreventiveCardBlocking
     lateinit var creditcardSecurity: CreditCardSecurity

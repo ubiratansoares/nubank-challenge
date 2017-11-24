@@ -1,5 +1,7 @@
 package br.ufs.nubankchallenge.core.tests.util
 
+import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
+import br.ufs.nubankchallenge.core.domain.chargeback.models.PossibleReclaimReason
 import br.ufs.nubankchallenge.core.domain.notice.ChargebackNotice
 import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
 import okhttp3.MediaType
@@ -18,14 +20,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Fixtures {
 
-    fun chargebackNotice(): ChargebackNotice {
-        return ChargebackNotice(
-                title = "Antes de continuar",
-                rawDescription = "<p>Estamos com você nesta! Certifique-se dos pontos abaixo, são muito importantes:<br/><strong>• Você pode <font color=\\\"#6e2b77\\\">procurar o nome do estabelecimento no Google</font>. Diversas vezes encontramos informações valiosas por lá e elas podem te ajudar neste processo.</strong><br/><strong>• Caso você reconheça a compra, é muito importante pra nós que entre em contato com o estabelecimento e certifique-se que a situação já não foi resolvida.</strong></p>",
-                primaryActionText = "Continuar",
-                secondaryActionText = "Fechar"
-        )
-    }
+    fun chargebackOptions(blockCard: Boolean) = ChargebackOptions(
+            "Não reconheço essa compra",
+            rawCommentHint = "Descreva o que aconteceu",
+            shouldBlockCreditcard = blockCard,
+            possibleReasons = listOf(
+                    PossibleReclaimReason("merchant_recognized", "Reconhece o estabelecimento?"),
+                    PossibleReclaimReason("card_in_possession", "Está com o cartão em mãos?")
+            )
+    )
+
+    fun chargebackNotice() = ChargebackNotice(
+            title = "Antes de continuar",
+            rawDescription = "<p>Estamos com você nesta! Certifique-se dos pontos abaixo, são muito importantes:<br/><strong>• Você pode <font color=\\\"#6e2b77\\\">procurar o nome do estabelecimento no Google</font>. Diversas vezes encontramos informações valiosas por lá e elas podem te ajudar neste processo.</strong><br/><strong>• Caso você reconheça a compra, é muito importante pra nós que entre em contato com o estabelecimento e certifique-se que a situação já não foi resolvida.</strong></p>",
+            primaryActionText = "Continuar",
+            secondaryActionText = "Fechar"
+    )
 
     fun httpError(statusCode: Int, errorMessage: String): HttpException {
         val jsonMediaType = MediaType.parse("application/json")
@@ -47,4 +57,6 @@ object Fixtures {
 
         return retrofit.create(NubankWebService::class.java)
     }
+
+
 }

@@ -1,7 +1,6 @@
 package br.ufs.nubankchallenge.core.infrastructure
 
-import br.ufs.nubankchallenge.core.domain.chargeback.RetrieveChargebackOptions
-import br.ufs.nubankchallenge.core.domain.chargeback.SubmitNewChargeback
+import br.ufs.nubankchallenge.core.domain.chargeback.Chargeback
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
 import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandler
@@ -21,10 +20,9 @@ import io.reactivex.schedulers.Schedulers
 
 class ChargebackInfrastructure(
         private val webService: NubankWebService,
-        private val ioScheduler: Scheduler = Schedulers.trampoline()
-) : RetrieveChargebackOptions, SubmitNewChargeback {
+        private val ioScheduler: Scheduler = Schedulers.trampoline()) : Chargeback {
 
-    override fun withReclaim(reclaim: ChargebackReclaim): Observable<Unit> {
+    override fun sendReclaim(reclaim: ChargebackReclaim): Observable<Unit> {
         return webService.submitChargeback(chargebackReclaimToBody(reclaim))
                 .subscribeOn(ioScheduler)
                 .compose(InfraErrorsHandler())

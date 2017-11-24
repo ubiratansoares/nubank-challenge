@@ -3,6 +3,7 @@ package br.ufs.nubankchallenge.core.presentation.chargeback
 import android.text.Html
 import android.text.Spanned
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
+import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
 
 /**
  *
@@ -13,42 +14,42 @@ import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 data class ChargebackScreenModel(
         val screenTitle: String,
         val commentHint: Spanned,
-        val lockpadInfo: LockpadModel,
-        val reasons: List<ReasonRowModel>,
-        val cardBlockedByUser: Boolean = false) {
+        val lockpadState: LockpadState,
+        val reasons: List<ReasonRowModel>) {
 
     companion object Mapper {
         operator fun invoke(
                 options: ChargebackOptions,
-                alreadyBlocked: Boolean = false): ChargebackScreenModel {
+                actualLockpadState: LockpadState): ChargebackScreenModel {
 
             return with(options) {
                 ChargebackScreenModel(
                         screenTitle = disclaimer,
                         commentHint = Html.fromHtml(rawCommentHint),
-                        lockpadInfo = buildLockpadModel(shouldBlockCreditcard, alreadyBlocked),
-                        reasons = possibleReasons.map { ReasonRowModel(it.id, it.title) },
-                        cardBlockedByUser = alreadyBlocked
+                        lockpadState = updateLockpad(shouldBlockCreditcard, actualLockpadState),
+                        reasons = possibleReasons.map { ReasonRowModel(it.id, it.title) }
                 )
             }
         }
 
-        private fun buildLockpadModel(shouldBlock: Boolean,
-                                      alreadyBlocked: Boolean): LockpadModel {
+        private fun updateLockpad(shouldBlock: Boolean,
+                                  actualLockpadState: LockpadState): LockpadState {
 
-            if (alreadyBlocked || shouldBlock) {
-                return LockpadModel(0, 0)
+            return when (actualLockpadState) {
+                is LockedByUser -> actualLockpadState
+                is UnlockedByUser -> actualLockpadState
+                else -> if (shouldBlock) return LockedBySystem else UnlockedByDefault
             }
-
-            return LockpadModel(1, 1)
         }
     }
 }
 
-data class LockpadModel(
-        val disclaimerResource: Int,
-        val lockPadImage: Int
-)
+sealed class LockpadState(val disclaimerResource: Int, val lockPadImage: Int) {
+    object LockedBySystem : LockpadState(0, 0)
+    object LockedByUser : LockpadState(0, 0)
+    object UnlockedByDefault : LockpadState(1, 1)
+    object UnlockedByUser : LockpadState(1, 1)
+}
 
 data class ReasonRowModel(
         val id: String,

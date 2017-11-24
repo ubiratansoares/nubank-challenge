@@ -1,10 +1,9 @@
 package br.ufs.nubankchallenge.core.presentation.chargeback
 
 import android.arch.lifecycle.ViewModel
+import br.ufs.nubankchallenge.core.domain.chargeback.Chargeback
 import br.ufs.nubankchallenge.core.domain.chargeback.CreditCardSecurity
 import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
-import br.ufs.nubankchallenge.core.domain.chargeback.RetrieveChargebackOptions
-import br.ufs.nubankchallenge.core.domain.chargeback.SubmitNewChargeback
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
 import br.ufs.nubankchallenge.core.presentation.util.Replayer
 import br.ufs.nubankchallenge.core.presentation.util.Replayer.Companion.CLEAR_STATE
@@ -19,45 +18,45 @@ import io.reactivex.schedulers.Schedulers
  */
 
 class ChargebackScreen(
-        private val preventiveCardBlocking: PreventiveCardBlocking,
-        private val cardSecurity: CreditCardSecurity,
-        private val retrieveChargeback: RetrieveChargebackOptions,
-        private val submitNewChargeback: SubmitNewChargeback,
+        private val fraudPreventer: PreventiveCardBlocking,
+        private val cardSecurer: CreditCardSecurity,
+        private val chargebacker: Chargeback,
         private val uiScheduler: Scheduler = Schedulers.trampoline()) : ViewModel() {
 
     lateinit var actualState: ChargebackScreenModel
-    lateinit var chargebackReclaim: ChargebackReclaim
 
-    private var replayableOperation: Observable<ChargebackScreenModel> = Observable.never()
+    private var replayable: Observable<ChargebackScreenModel> = Observable.never()
 
     fun chargebackOptions(invalidate: Boolean = false): Observable<ChargebackScreenModel> {
         if (invalidate) reset()
-        if (replayableOperation == CLEAR_STATE) replayableOperation = replayableState()
-        return replayableOperation
+        if (replayable == CLEAR_STATE) replayable = replayableState()
+        return replayable
     }
 
     fun unblockCreditcard() =
-            cardSecurity
+            cardSecurer
                     .unblockSolicitation()
-                    .map { actualState.copy(cardBlockedByUser = false) }
+                    .map { actualState.copy(lockpadState = LockpadState.UnlockedByUser) }
 
     fun blockCreditcard() =
-            cardSecurity
+            cardSecurer
                     .blockSolicitation()
-                    .map { actualState.copy(cardBlockedByUser = true) }
+                    .map { actualState.copy(lockpadState = LockpadState.LockedByUser) }
 
-    fun requestChargeback() = submitNewChargeback.withReclaim(chargebackReclaim)
+    fun sendChargebackReclaim(reclaim: ChargebackReclaim) = chargebacker.sendReclaim(reclaim)
 
     private fun replayableState(): Observable<ChargebackScreenModel> {
-        return retrieveChargeback
+        return chargebacker
                 .possibleActions()
-                .compose(preventiveCardBlocking)
-                .map { ChargebackScreenModel(it) }
+                .compose(fraudPreventer)
+                .map { ChargebackScreenModel(it, LockpadState.UnlockedByDefault) }
                 .doOnNext { actualState = it }
                 .observeOn(uiScheduler)
                 .compose(Replayer())
     }
 
-    private fun reset() { replayableOperation = Observable.never() }
+    private fun reset() {
+        replayable = Observable.never()
+    }
 
 }
