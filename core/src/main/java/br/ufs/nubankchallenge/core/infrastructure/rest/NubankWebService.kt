@@ -19,11 +19,11 @@ interface NubankWebService {
 
     @GET("notice") fun chargebackNotice(): Observable<ChargebackNoticePayload>
 
+    @POST("card_block") fun blockCard(): Observable<OperationResultPayload>
+
+    @POST("card_unblock") fun unblockCard(): Observable<OperationResultPayload>
+
     @GET("chargeback") fun chargebackActions(): Observable<ChargebackActionsPayload>
-
-    @POST("chargeback") fun blockCard(): Observable<OperationResultPayload>
-
-    @POST("chargeback") fun unblockCard(): Observable<OperationResultPayload>
 
     @POST("chargeback") fun submitChargeback(@Body body: SubmitChargebackBody):
             Observable<OperationResultPayload>
