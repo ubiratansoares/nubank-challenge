@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import br.ufs.hiring.nubankchallenge.R
 import br.ufs.hiring.nubankchallenge.factories.FakeTransaction
-import br.ufs.hiring.nubankchallenge.notice.ChargebackNoticeActivity
+import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import kotlinx.android.synthetic.main.activity_purchase_details.*
 
 class PurchaseDetailsActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class PurchaseDetailsActivity : AppCompatActivity() {
         fillWithFakeData()
 
         startChargebackButton.setOnClickListener {
-            startActivity(Intent(baseContext, ChargebackNoticeActivity::class.java))
+            startActivity(Intent(baseContext, NoticeActivity::class.java))
         }
     }
 

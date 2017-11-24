@@ -2,7 +2,7 @@ package br.ufs.hiring.nubankchallenge.uitests
 
 import android.support.test.runner.AndroidJUnit4
 import br.ufs.hiring.nubankchallenge.factories.TestScenario.*
-import br.ufs.hiring.nubankchallenge.notice.ChargebackNoticeActivity
+import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
 import br.ufs.hiring.nubankchallenge.uitests.robots.noticeInformation
 import br.ufs.hiring.nubankchallenge.uitests.util.ScenariosLauncher
@@ -12,9 +12,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ChargebackNoticeAcceptance {
+class NoticeAcceptanceTests {
 
-    @Rule @JvmField val launcher = ScenariosLauncher(ChargebackNoticeActivity::class)
+    @Rule @JvmField val launcher = ScenariosLauncher(NoticeActivity::class)
 
     @Test fun acceptServerDownScenario() {
 

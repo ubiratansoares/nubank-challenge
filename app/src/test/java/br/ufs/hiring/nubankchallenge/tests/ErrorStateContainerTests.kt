@@ -3,7 +3,7 @@ package br.ufs.hiring.nubankchallenge.tests
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import br.ufs.hiring.nubankchallenge.R
-import br.ufs.hiring.nubankchallenge.notice.ChargebackNoticeActivity
+import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import br.ufs.hiring.nubankchallenge.widgets.ErrorStateContainer
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
@@ -29,7 +29,7 @@ class ErrorStateContainerTests {
     val context by lazy { RuntimeEnvironment.application }
 
     @Before fun `before each test`() {
-        val activity = Robolectric.buildActivity(ChargebackNoticeActivity::class.java)
+        val activity = Robolectric.buildActivity(NoticeActivity::class.java)
                 .create()
                 .get()
 

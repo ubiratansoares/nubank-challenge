@@ -7,12 +7,12 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import br.ufs.hiring.nubankchallenge.R
-import br.ufs.hiring.nubankchallenge.notice.ChargebackNoticeActivity
+import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.InternetUnreachable
 import br.ufs.nubankchallenge.core.presentation.notice.NoticeScreenModel
-import kotlinx.android.synthetic.main.activity_chargeback_notice.*
+import kotlinx.android.synthetic.main.activity_notice.*
 import kotlinx.android.synthetic.main.view_error_feedback.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -27,9 +27,9 @@ import org.robolectric.RobolectricTestRunner
  *
  */
 @RunWith(RobolectricTestRunner::class)
-class ChargebackNoticeActivityTests {
+class NoticeActivityTests {
 
-    lateinit var activity: ChargebackNoticeActivity
+    lateinit var activity: NoticeActivity
     lateinit var loading: ProgressBar
     lateinit var feedbackContainer: View
     lateinit var titleLabel: TextView
@@ -40,7 +40,7 @@ class ChargebackNoticeActivityTests {
     lateinit var errorLabel: TextView
 
     @Before fun `before each test`() {
-        activity = Robolectric.buildActivity(ChargebackNoticeActivity::class.java).create().get()
+        activity = Robolectric.buildActivity(NoticeActivity::class.java).create().get()
         loading = activity.loadingIndicator
         feedbackContainer = activity.feedbackContainer
         titleLabel = activity.noticeTitleLabel
@@ -114,7 +114,7 @@ class ChargebackNoticeActivityTests {
     }
 
     @Test fun `should release disposable at screen destruction`() {
-        activity = Robolectric.buildActivity(ChargebackNoticeActivity::class.java)
+        activity = Robolectric.buildActivity(NoticeActivity::class.java)
                 .create()
                 .resume()
                 .destroy()

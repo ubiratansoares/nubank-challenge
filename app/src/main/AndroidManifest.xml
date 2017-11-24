@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".notice.ChargebackNoticeActivity"/>
+        <activity android:name=".notice.NoticeActivity"/>
+        <activity android:name=".chargeback.ChargebackActivity"/>
     </application>
 
 

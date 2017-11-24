@@ -1,5 +1,6 @@
 package br.ufs.hiring.nubankchallenge.notice
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.Snackbar.LENGTH_INDEFINITE
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import br.ufs.hiring.nubankchallenge.R
+import br.ufs.hiring.nubankchallenge.chargeback.ChargebackActivity
 import br.ufs.hiring.nubankchallenge.factories.PresentationFactory
 import br.ufs.hiring.nubankchallenge.util.action
 import br.ufs.hiring.nubankchallenge.util.colorForActionText
@@ -21,7 +23,7 @@ import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
 import br.ufs.nubankchallenge.core.presentation.notice.NoticeScreenModel
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Action
-import kotlinx.android.synthetic.main.activity_chargeback_notice.*
+import kotlinx.android.synthetic.main.activity_notice.*
 import kotlinx.android.synthetic.main.view_error_feedback.*
 
 /**
@@ -30,7 +32,7 @@ import kotlinx.android.synthetic.main.view_error_feedback.*
  *
  */
 
-class ChargebackNoticeActivity : AppCompatActivity(),
+class NoticeActivity : AppCompatActivity(),
         LoadingView, NetworkingErrorView, ErrorStateView {
 
     val screen by screenProvider { PresentationFactory.noticeScreen() }
@@ -40,7 +42,7 @@ class ChargebackNoticeActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chargeback_notice)
+        setContentView(R.layout.activity_notice)
     }
 
     override fun onResume() {
@@ -129,7 +131,7 @@ class ChargebackNoticeActivity : AppCompatActivity(),
     }
 
     private fun proceedToChargeback() {
-
+        startActivity(Intent(this, ChargebackActivity::class.java))
     }
 
     private fun callToAction(

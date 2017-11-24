@@ -3,4 +3,5 @@
     <dimen name="forty_eight_dips">48dp</dimen>
     <dimen name="sixteen_dips">16dp</dimen>
     <dimen name="twentyfour_dips">24dp</dimen>
+    <dimen name="eight_dips">8dp</dimen>
 </resources>
