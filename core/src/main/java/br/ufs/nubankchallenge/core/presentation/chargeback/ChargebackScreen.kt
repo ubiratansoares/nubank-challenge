@@ -6,9 +6,10 @@ import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
 import br.ufs.nubankchallenge.core.domain.chargeback.RetrieveChargebackOptions
 import br.ufs.nubankchallenge.core.domain.chargeback.SubmitNewChargeback
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
+import br.ufs.nubankchallenge.core.presentation.util.Replayer
+import br.ufs.nubankchallenge.core.presentation.util.Replayer.Companion.CLEAR_STATE
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.internal.operators.observable.ObservableNever
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -27,12 +28,12 @@ class ChargebackScreen(
     lateinit var actualState: ChargebackScreenModel
     lateinit var chargebackReclaim: ChargebackReclaim
 
-    private var replayer: Observable<ChargebackScreenModel> = Observable.never()
+    private var replayableOperation: Observable<ChargebackScreenModel> = Observable.never()
 
     fun chargebackOptions(invalidate: Boolean = false): Observable<ChargebackScreenModel> {
         if (invalidate) reset()
-        if (replayer == CLEAR_STATE) replayer = optionsReplayer()
-        return replayer
+        if (replayableOperation == CLEAR_STATE) replayableOperation = replayableState()
+        return replayableOperation
     }
 
     fun unblockCreditcard() =
@@ -47,22 +48,16 @@ class ChargebackScreen(
 
     fun requestChargeback() = submitNewChargeback.withReclaim(chargebackReclaim)
 
-    private fun optionsReplayer(): Observable<ChargebackScreenModel> {
+    private fun replayableState(): Observable<ChargebackScreenModel> {
         return retrieveChargeback
                 .possibleActions()
                 .compose(preventiveCardBlocking)
                 .map { ChargebackScreenModel(it) }
                 .doOnNext { actualState = it }
                 .observeOn(uiScheduler)
-                .replay(BUFFER_COUNT)
-                .autoConnect(MAX_SUBSCRIBERS)
+                .compose(Replayer())
     }
 
-    private fun reset() { replayer = Observable.never() }
+    private fun reset() { replayableOperation = Observable.never() }
 
-    private companion object {
-        val CLEAR_STATE: Observable<*> = ObservableNever.INSTANCE
-        val MAX_SUBSCRIBERS = 1
-        val BUFFER_COUNT = 1
-    }
 }
