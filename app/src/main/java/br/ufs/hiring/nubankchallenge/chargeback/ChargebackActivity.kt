@@ -2,7 +2,6 @@ package br.ufs.hiring.nubankchallenge.chargeback
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -11,6 +10,7 @@ import br.ufs.hiring.nubankchallenge.R
 import br.ufs.hiring.nubankchallenge.factories.PresentationFactory
 import br.ufs.hiring.nubankchallenge.util.action
 import br.ufs.hiring.nubankchallenge.util.colorForActionText
+import br.ufs.hiring.nubankchallenge.util.compoundDrawableLeft
 import br.ufs.hiring.nubankchallenge.util.screenProvider
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
@@ -74,9 +74,6 @@ class ChargebackActivity : AppCompatActivity(),
                         { forceScreenUpdate() }
                 )
         }
-
-        val dialog = AlertDialog.Builder(this).create()
-        dialog.show()
     }
 
     override fun reportNetworkingError(issue: NetworkingIssue) = Action {
@@ -104,10 +101,7 @@ class ChargebackActivity : AppCompatActivity(),
         chargebackTitleLabel.text = model.screenTitle
         userCommentInput.hint = model.commentHint
         cardLockpadLabel.text = getString(model.lockpadState.disclaimerResource)
-        cardLockpadLabel.setCompoundDrawablesWithIntrinsicBounds(
-                model.lockpadState.lockPadImage,
-                0, 0, 0)
-
+        cardLockpadLabel.compoundDrawableLeft(model.lockpadState.lockPadImage)
         reasonsView.adapter = ReclaimReasonsAdapter(model.reasons)
     }
 
