@@ -8,7 +8,8 @@ import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
 import br.ufs.nubankchallenge.core.domain.chargeback.models.Fraud
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreen
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
+import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.LockedBySystem
+import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.UnlockedByDefault
 import br.ufs.nubankchallenge.core.tests.util.Fixtures.chargebackOptions
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -56,40 +57,6 @@ class ChargebackScreenTests {
                 .assertValue { it == expected }
     }
 
-    @Test fun `should block creditcard at user decision`() {
-
-        val options = chargebackOptions(blockCard = false)
-        val expected = ChargebackScreenModel(options, LockedByUser)
-
-        `backend will accept card blocking`()
-        `prepare screen with chargeback options`(options)
-
-        screen.blockCreditcard()
-                .test()
-                .assertNoErrors()
-                .assertComplete()
-                .assertValue { it == expected }
-    }
-
-    @Test fun `should unblock creditcard at user decision`() {
-
-        val given = chargebackOptions(blockCard = true)
-        val expected = ChargebackScreenModel(
-                options = given,
-                actualLockpadState = UnlockedByUser
-        )
-
-        `backend will accept card blocking`()
-        `prepare screen with chargeback options`(given)
-        `backend now accepts card unblocking`()
-
-        screen.unblockCreditcard()
-                .test()
-                .assertNoErrors()
-                .assertComplete()
-                .assertValue { it == expected }
-    }
-
     @Test fun `should integrate creditcard preventive blocking`() {
 
         val options = chargebackOptions(blockCard = true)
@@ -120,10 +87,6 @@ class ChargebackScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-    }
-
-    private fun `backend now accepts card unblocking`() {
-        whenever(cardSecurer.unblockSolicitation()).thenReturn(operationSuccess())
     }
 
     private fun `backend will accept card blocking`() {

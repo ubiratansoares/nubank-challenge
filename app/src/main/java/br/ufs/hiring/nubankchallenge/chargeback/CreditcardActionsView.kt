@@ -1,4 +1,4 @@
-package br.ufs.hiring.nubankchallenge.widgets
+package br.ufs.hiring.nubankchallenge.chargeback
 
 import android.content.Context
 import android.util.AttributeSet
@@ -12,7 +12,6 @@ import br.ufs.hiring.nubankchallenge.util.compoundDrawableLeft
 import br.ufs.hiring.nubankchallenge.util.screenProvider
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
-import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState
 import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
@@ -35,7 +34,7 @@ class CreditcardActionsView @JvmOverloads constructor(
         defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr),
         LoadingView, NetworkingErrorView, ErrorStateView {
 
-    private val screen by screenProvider { PresentationFactory.chargebackScreen() }
+    private val screen by screenProvider { PresentationFactory.creditcardBlockerScreen() }
     private val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
     private val subscriptions by lazy { CompositeDisposable() }
 
@@ -79,21 +78,20 @@ class CreditcardActionsView @JvmOverloads constructor(
         actualState = newState
     }
 
-    private fun perform(operation: Observable<ChargebackScreenModel>) {
+    private fun perform(operation: Observable<LockpadState>) {
         val subscription = operation
                 .doOnSubscribe { toProcessingState() }
                 .compose(presenter)
                 .subscribe(
-                        { updateState(it as ChargebackScreenModel) },
-                        { Log.e("BlockOrUnblock", "Error -> $it") },
-                        { Log.v("BlockOrUnblock", "Done") }
+                        { updateState(it as LockpadState) },
+                        { Log.e(TAG, "Error -> $it") },
+                        { Log.v(TAG, "Done") }
                 )
 
         subscriptions.add(subscription)
     }
 
-    private fun updateState(model: ChargebackScreenModel) {
-        val newState = model.lockpadState
+    private fun updateState(newState: LockpadState) {
         actualState = newState
         applyActualState()
     }
@@ -113,4 +111,7 @@ class CreditcardActionsView @JvmOverloads constructor(
         Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
     }
 
+    private companion object {
+        val TAG = "CreditcardActionsView"
+    }
 }

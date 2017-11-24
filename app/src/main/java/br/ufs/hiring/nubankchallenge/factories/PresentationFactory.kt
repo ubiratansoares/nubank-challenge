@@ -3,6 +3,7 @@ package br.ufs.hiring.nubankchallenge.factories
 import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
 import br.ufs.nubankchallenge.core.presentation.behaviors.BehaviorsPresenter
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreen
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardBlockerScreen
 import br.ufs.nubankchallenge.core.presentation.notice.NoticeScreen
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -27,4 +28,8 @@ object PresentationFactory {
         return ChargebackScreen(preventiveBlocking, blocker, chargebacker, uiScheduler)
     }
 
+    fun creditcardBlockerScreen() = CreditcardBlockerScreen(
+            InfrastructureFactory.cardBlocker(),
+            uiScheduler
+    )
 }

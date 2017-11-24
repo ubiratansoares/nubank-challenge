@@ -5,7 +5,6 @@ import br.ufs.nubankchallenge.core.infrastructure.errorhandlers.InfraErrorsHandl
 import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -20,13 +19,12 @@ class CreditcardSecurityInfrastrucure(
             webService.blockCard()
                     .subscribeOn(ioScheduler)
                     .compose(InfraErrorsHandler())
-                    .delay(1, TimeUnit.SECONDS)
                     .map { Unit }
 
-    override fun unblockSolicitation() = webService.unblockCard()
-            .subscribeOn(ioScheduler)
-            .compose(InfraErrorsHandler())
-            .delay(1, TimeUnit.SECONDS)
-            .map { Unit }
+    override fun unblockSolicitation() =
+            webService.unblockCard()
+                    .subscribeOn(ioScheduler)
+                    .compose(InfraErrorsHandler())
+                    .map { Unit }
 
 }
