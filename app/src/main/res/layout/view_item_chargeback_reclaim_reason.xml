@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/eight_dips"
-    android:paddingLeft="@dimen/sixteen_dips"
-    android:paddingRight="@dimen/sixteen_dips"
     android:paddingTop="@dimen/eight_dips"
     android:text="Está com o cartão em mãos?"
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"

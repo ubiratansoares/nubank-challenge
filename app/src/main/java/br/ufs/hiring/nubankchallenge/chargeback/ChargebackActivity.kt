@@ -10,11 +10,11 @@ import br.ufs.hiring.nubankchallenge.R
 import br.ufs.hiring.nubankchallenge.factories.PresentationFactory
 import br.ufs.hiring.nubankchallenge.util.action
 import br.ufs.hiring.nubankchallenge.util.colorForActionText
-import br.ufs.hiring.nubankchallenge.util.compoundDrawableLeft
 import br.ufs.hiring.nubankchallenge.util.screenProvider
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
+import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
@@ -22,6 +22,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.activity_chargeback.*
 import kotlinx.android.synthetic.main.view_error_feedback.*
+import kotlinx.android.synthetic.main.view_lockpad_state.*
 
 /**
  *
@@ -41,7 +42,6 @@ class ChargebackActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chargeback)
         reasonsView.layoutManager = LinearLayoutManager(this)
-        reasonsView.isNestedScrollingEnabled = false
     }
 
     override fun onResume() {
@@ -91,29 +91,46 @@ class ChargebackActivity : AppCompatActivity(),
                 .compose(presenter)
                 .subscribe(
                         { fillChargeback(it as ChargebackScreenModel) },
-                        { Log.e("Notice", "Error -> $it") },
-                        { Log.v("Notice", "Loaded with success") }
+                        { Log.e("Chargeback", "Error -> $it") },
+                        { Log.v("Chargeback", "Loaded with success") }
                 )
     }
 
     private fun fillChargeback(model: ChargebackScreenModel) {
+        reasonsView.adapter = null
         showChargebackViews()
         chargebackTitleLabel.text = model.screenTitle
-        userCommentInput.hint = model.commentHint
-        cardLockpadLabel.text = getString(model.lockpadState.disclaimerResource)
-        cardLockpadLabel.compoundDrawableLeft(model.lockpadState.lockPadImage)
+
+        userCommentInput.apply {
+            hint = model.commentHint
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                hint = if (hasFocus) "" else model.commentHint
+            }
+        }
+
+        fillCreditcardInfo(model.lockpadState)
         reasonsView.adapter = ReclaimReasonsAdapter(model.reasons)
     }
 
+    private fun fillCreditcardInfo(lockpadState: LockpadState) {
+        lockpadView.setActualLockingState(lockpadState)
+    }
+
+
     private fun showChargebackViews() {
-        screenTitle.visibility = View.VISIBLE
-        chargebackContainer.visibility = View.VISIBLE
-        actionsContainer.visibility = View.VISIBLE
+        View.VISIBLE.let {
+            lockpadView.visibility = it
+            screenTitle.visibility = it
+            chargebackContainer.visibility = it
+            actionsContainer.visibility = it
+        }
     }
 
     private fun showFeedback(error: Throwable) {
-        feedbackContainer.visibility = View.VISIBLE
-        feedbackContainer.setState(error)
+        feedbackContainer.apply {
+            visibility = View.VISIBLE
+            setState(error)
+        }
     }
 
     private fun callToAction(

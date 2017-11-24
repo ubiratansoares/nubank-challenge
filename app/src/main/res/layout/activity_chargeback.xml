@@ -66,73 +66,41 @@
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <LinearLayout
         android:id="@+id/chargebackContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/actionsContainer"
         android:layout_below="@id/screenTitle"
-        android:focusableInTouchMode="true"
+        android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <LinearLayout
+        <include layout="@layout/view_lockpad_state" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reasonsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/sixteen_dips"
+            android:layout_marginLeft="@dimen/twentyfour_dips"
+            android:layout_marginRight="@dimen/eight_dips"
+            tools:listitem="@layout/view_item_chargeback_reclaim_reason" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/eight_dips">
+        <include layout="@layout/view_horizonal_line" />
 
-                <TextView
-                    android:id="@+id/cardLockpadLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_chargeback_lock"
-                    android:drawablePadding="@dimen/eight_dips"
-                    android:gravity="clip_vertical"
-                    android:padding="@dimen/sixteen_dips"
-                    android:text="@string/message_cardblocked"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/red_blocked"
-                    android:visibility="visible" />
-
-                <ProgressBar
-                    android:id="@+id/secondaryLoadingIndicator"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/sixteen_dips"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/reasonsView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/sixteen_dips"
-                android:layout_marginLeft="@dimen/eight_dips"
-                android:layout_marginRight="@dimen/eight_dips"
-                tools:listitem="@layout/view_item_chargeback_reclaim_reason" />
-
-            <include layout="@layout/view_horizonal_line" />
-
-            <EditText
-                android:id="@+id/userCommentInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/eight_dips"
-                android:lineSpacingExtra="@dimen/eight_dips"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColorHint="@color/gray_hint"
-                tools:hint="Nos conte o que aconteceu" />
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+        <EditText
+            android:id="@+id/userCommentInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dips"
+            android:imeOptions=""
+            android:lineSpacingExtra="@dimen/eight_dips"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColorHint="@color/gray_hint"
+            tools:hint="Nos conte o que aconteceu" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/loadingChargeback"
