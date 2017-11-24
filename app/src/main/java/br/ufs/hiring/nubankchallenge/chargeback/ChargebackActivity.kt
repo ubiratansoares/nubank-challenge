@@ -116,7 +116,6 @@ class ChargebackActivity : AppCompatActivity(),
         lockpadView.setActualLockingState(lockpadState)
     }
 
-
     private fun showChargebackViews() {
         View.VISIBLE.let {
             lockpadView.visibility = it
@@ -138,7 +137,7 @@ class ChargebackActivity : AppCompatActivity(),
             retryAction: (Any) -> Unit,
             retryText: Int = R.string.snackaction_retry) {
 
-        Snackbar.make(chargebackScreenRoot, callToActionText, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(window.decorView.rootView, callToActionText, Snackbar.LENGTH_INDEFINITE)
                 .action(retryText, retryAction)
                 .colorForActionText(R.color.gray_call_to_action)
                 .show()

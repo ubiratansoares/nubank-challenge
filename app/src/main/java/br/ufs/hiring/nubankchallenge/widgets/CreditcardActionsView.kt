@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import br.ufs.hiring.nubankchallenge.R
 import br.ufs.hiring.nubankchallenge.factories.PresentationFactory
 import br.ufs.hiring.nubankchallenge.util.compoundDrawableLeft
 import br.ufs.hiring.nubankchallenge.util.screenProvider
@@ -18,11 +19,9 @@ import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.view_lockpad_state.view.*
-import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -36,11 +35,11 @@ class CreditcardActionsView @JvmOverloads constructor(
         defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr),
         LoadingView, NetworkingErrorView, ErrorStateView {
 
-    private var actualState: LockpadState = UnlockedByDefault
+    private val screen by screenProvider { PresentationFactory.chargebackScreen() }
+    private val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
+    private val subscriptions by lazy { CompositeDisposable() }
 
-    val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
-    val screen by screenProvider { PresentationFactory.chargebackScreen() }
-    val subscriptions by lazy { CompositeDisposable() }
+    private var actualState: LockpadState = UnlockedByDefault
 
     init {
         setOnClickListener {
@@ -58,18 +57,12 @@ class CreditcardActionsView @JvmOverloads constructor(
     override fun hideLoading() = Action { lockOperationLoading.visibility = View.GONE }
 
     override fun showErrorState(error: InfrastructureError) = Action {
-        Toast.makeText(context,
-                "Houve um erro ao realizar a operação",
-                Toast.LENGTH_LONG).show()
-
+        feedback(R.string.toast_error_at_operation)
         applyActualState()
     }
 
     override fun reportNetworkingError(issue: NetworkingIssue) = Action {
-        Toast.makeText(context,
-                "Houve um erro ao realizar a operação",
-                Toast.LENGTH_LONG).show()
-
+        feedback(R.string.toast_internet_error)
         applyActualState()
     }
 
@@ -82,16 +75,14 @@ class CreditcardActionsView @JvmOverloads constructor(
         super.onDetachedFromWindow()
     }
 
-    fun setActualLockingState(actual: LockpadState) {
-        actualState = actual
+    fun setActualLockingState(newState: LockpadState) {
+        actualState = newState
     }
 
     private fun perform(operation: Observable<ChargebackScreenModel>) {
         val subscription = operation
                 .doOnSubscribe { toProcessingState() }
-                .debounce(5, TimeUnit.SECONDS)
                 .compose(presenter)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { updateState(it as ChargebackScreenModel) },
                         { Log.e("BlockOrUnblock", "Error -> $it") },
@@ -115,7 +106,11 @@ class CreditcardActionsView @JvmOverloads constructor(
     }
 
     private fun toProcessingState() {
-        lockpadLabel.text = "Aguarde ..."
+        lockpadLabel.text = resources.getString(R.string.message_wait_for_operation)
+    }
+
+    private fun feedback(messageId: Int) {
+        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
     }
 
 }

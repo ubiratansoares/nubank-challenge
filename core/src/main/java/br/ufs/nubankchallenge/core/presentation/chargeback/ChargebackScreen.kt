@@ -37,11 +37,13 @@ class ChargebackScreen(
             cardSecurer
                     .unblockSolicitation()
                     .map { actualState.copy(lockpadState = LockpadState.UnlockedByUser) }
+                    .observeOn(uiScheduler)
 
     fun blockCreditcard() =
             cardSecurer
                     .blockSolicitation()
                     .map { actualState.copy(lockpadState = LockpadState.LockedByUser) }
+                    .observeOn(uiScheduler)
 
     fun sendChargebackReclaim(reclaim: ChargebackReclaim) = chargebacker.sendReclaim(reclaim)
 

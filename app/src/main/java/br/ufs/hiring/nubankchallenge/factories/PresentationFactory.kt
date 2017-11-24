@@ -14,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 object PresentationFactory {
 
-    val uiScheduler = AndroidSchedulers.mainThread()
+    private val uiScheduler = AndroidSchedulers.mainThread()
 
     fun behaviorsPresenter(view: Any) = BehaviorsPresenter(view, uiScheduler)
 
