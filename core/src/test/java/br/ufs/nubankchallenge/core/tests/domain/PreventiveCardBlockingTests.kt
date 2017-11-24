@@ -117,7 +117,7 @@ class PreventiveCardBlockingTests {
     private fun `verify block soliticitation only and once`() {
 
         verify(creditcardSecurity, times(1)).blockSolicitation()
-        verify(creditcardSecurity, never()).unblockSoliction()
+        verify(creditcardSecurity, never()).unblockSolicitation()
         verifyNoMoreInteractions(creditcardSecurity)
     }
 

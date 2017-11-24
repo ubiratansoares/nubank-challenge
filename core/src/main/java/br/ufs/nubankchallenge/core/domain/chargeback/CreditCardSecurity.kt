@@ -11,6 +11,6 @@ import io.reactivex.Observable
 interface CreditCardSecurity {
 
     fun blockSolicitation(): Observable<Unit>
-    fun unblockSoliction(): Observable<Unit>
+    fun unblockSolicitation(): Observable<Unit>
 
 }
