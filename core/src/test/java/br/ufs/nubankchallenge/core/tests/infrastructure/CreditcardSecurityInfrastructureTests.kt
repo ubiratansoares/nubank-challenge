@@ -51,7 +51,7 @@ class CreditcardSecurityInfrastructureTests {
 
         server.enqueue(MockResponse().setResponseCode(502))
 
-        infrastructure.unblockSoliction()
+        infrastructure.unblockSolicitation()
                 .test()
                 .assertError { it == InfrastructureError.RemoteSystemDown }
     }
@@ -80,7 +80,7 @@ class CreditcardSecurityInfrastructureTests {
                         .setBody("{\"status\": \"Ok\"}")
         )
 
-        infrastructure.unblockSoliction()
+        infrastructure.unblockSolicitation()
                 .test()
                 .assertComplete()
                 .assertNoErrors()

@@ -22,7 +22,7 @@ class CreditcardSecurityInfrastrucure(
                     .compose(InfraErrorsHandler())
                     .map { Unit }
 
-    override fun unblockSoliction() = webService.unblockCard()
+    override fun unblockSolicitation() = webService.unblockCard()
             .subscribeOn(ioScheduler)
             .compose(InfraErrorsHandler())
             .map { Unit }

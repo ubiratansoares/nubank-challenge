@@ -32,12 +32,14 @@ data class NoticeScreenModel(
 
     companion object Mapper {
         operator fun invoke(notice: ChargebackNotice): NoticeScreenModel {
-            return NoticeScreenModel(
-                    title = notice.title,
-                    formattedDescription = Html.fromHtml(notice.rawDescription),
-                    proceedButtonLabel = notice.primaryActionText,
-                    cancelButtonLabel = notice.secondaryActionText
-            )
+            return with(notice) {
+                NoticeScreenModel(
+                        title = title,
+                        formattedDescription = Html.fromHtml(rawDescription),
+                        proceedButtonLabel = primaryActionText,
+                        cancelButtonLabel = secondaryActionText
+                )
+            }
         }
     }
 
