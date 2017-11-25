@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<br.ufs.hiring.nubankchallenge.chargeback.ChargebackSubmissionView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/submissionTitleLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Solicitando"
+        android:layout_marginTop="@dimen/eight_dips"
+        android:layout_marginBottom="@dimen/eight_dips"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/purple" />
+
+    <ProgressBar
+        android:id="@+id/submissionProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/eight_dips"
+        android:layout_marginBottom="@dimen/eight_dips"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/submissionMessageLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/eight_dips"
+        android:text="Sua contestação está sendo enviada..."
+        android:lineSpacingExtra="@dimen/eight_dips"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        tools:visibility="visible" />
+
+
+    <Button
+        android:id="@+id/submissionDone"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/twentyfour_dips"
+        android:text="Fechar"
+        android:visibility="invisible"
+        android:layout_marginTop="@dimen/eight_dips"
+        android:enabled="false"
+        android:textColor="@color/gray_call_to_action" />
+</br.ufs.hiring.nubankchallenge.chargeback.ChargebackSubmissionView>

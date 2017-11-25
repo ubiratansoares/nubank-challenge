@@ -21,9 +21,10 @@ ext {
     retrofitVersion = '2.3.0'
     rxJavaVersion = '2.1.6'
     rxAndroidVersion = '2.0.1'
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.0.1'
     archComponentsVersion = '1.0.3'
     archExtensionsVersion = '1.0.0'
+    materialDialogsVersion = '0.9.6.0'
 
     //Testing
     jUnitVersion = '4.12'
@@ -76,6 +77,7 @@ ext {
             design               : "com.android.support:design:${supportLibraryVersion}",
             archRuntime          : "android.arch.lifecycle:runtime:${archComponentsVersion}",
             archExtensions       : "android.arch.lifecycle:extensions:${archExtensionsVersion}",
+            materialDialogs      : "com.afollestad.material-dialogs:core:${materialDialogsVersion}"
     ]
 
     appTestDependencies = [

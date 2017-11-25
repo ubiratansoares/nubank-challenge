@@ -59,6 +59,7 @@ dependencies {
     implementation dependencies.rxAndroid
     implementation dependencies.appCompat
     implementation dependencies.design
+    implementation dependencies.materialDialogs
     implementation dependencies.archRuntime
     implementation dependencies.archExtensions
     implementation dependencies.retrofit
@@ -77,7 +78,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 }
-
 
 configurations.all {
     resolutionStrategy {

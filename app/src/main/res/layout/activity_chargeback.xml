@@ -44,7 +44,7 @@
         tools:visibility="visible">
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/leaveChargebackButton"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -54,13 +54,12 @@
             android:textColor="@color/gray_call_to_action" />
 
         <Button
-            android:id="@+id/doChargebackButton"
+            android:id="@+id/performChargebackButton"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="0dp"
-            android:enabled="false"
             android:padding="@dimen/twentyfour_dips"
             android:text="Contestar"
             android:textColor="@color/colorAccent" />

@@ -11,6 +11,7 @@ import br.ufs.nubankchallenge.core.infrastructure.rest.NubankWebService
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -25,6 +26,7 @@ class ChargebackInfrastructure(
     override fun sendReclaim(reclaim: ChargebackReclaim): Observable<Unit> {
         return webService.submitChargeback(chargebackReclaimToBody(reclaim))
                 .subscribeOn(ioScheduler)
+                .delay(3, TimeUnit.SECONDS)
                 .compose(InfraErrorsHandler())
                 .map { Unit }
     }

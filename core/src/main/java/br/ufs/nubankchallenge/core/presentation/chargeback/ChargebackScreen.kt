@@ -33,19 +33,9 @@ class ChargebackScreen(
         return replayable
     }
 
-    fun unblockCreditcard() =
-            cardSecurer
-                    .unblockSolicitation()
-                    .map { actualState.copy(lockpadState = LockpadState.UnlockedByUser) }
+    fun sendChargebackReclaim(reclaim: ChargebackReclaim) =
+            chargebacker.sendReclaim(reclaim)
                     .observeOn(uiScheduler)
-
-    fun blockCreditcard() =
-            cardSecurer
-                    .blockSolicitation()
-                    .map { actualState.copy(lockpadState = LockpadState.LockedByUser) }
-                    .observeOn(uiScheduler)
-
-    fun sendChargebackReclaim(reclaim: ChargebackReclaim) = chargebacker.sendReclaim(reclaim)
 
     private fun replayableState(): Observable<ChargebackScreenModel> {
         return chargebacker
