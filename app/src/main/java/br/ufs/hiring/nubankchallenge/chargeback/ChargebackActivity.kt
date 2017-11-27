@@ -169,19 +169,23 @@ class ChargebackActivity : AppCompatActivity(),
 
     private fun requestChargeback() {
         val submissionView = dialog.customView.let { it as ChargebackSubmissionView }
-
         val userComment = userCommentInput.text.toString()
         val reasons = reasonsView.adapter.let { it as ReclaimReasonsAdapter }.reasons
 
         val disposable = screen
                 .sendChargebackReclaim(userComment, reasons)
-                .doOnSubscribe { dialog.show() }
                 .compose(submissionView.presenter)
-                .doOnError { dialog.dismiss() }
+                .doOnSubscribe {
+                    submissionView.configureWith(
+                            success = { done() },
+                            error = { dialog.dismiss() }
+                    )
+                    dialog.show()
+                }
                 .subscribe(
                         {
-                            hideAllViews()
-                            submissionView.closeScreenWith({ done() })
+                            submissionView.displaySuccess()
+                            hideAllOtherViews()
                         },
                         { Log.e("Chargeback", "Error -> $it") }
                 )
@@ -197,7 +201,7 @@ class ChargebackActivity : AppCompatActivity(),
         finish()
     }
 
-    private fun hideAllViews() {
+    private fun hideAllOtherViews() {
         View.INVISIBLE.let {
             lockpadView.visibility = it
             screenTitle.visibility = it
