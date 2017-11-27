@@ -4,12 +4,11 @@ import br.ufs.nubankchallenge.core.domain.chargeback.Chargeback
 import br.ufs.nubankchallenge.core.domain.chargeback.CreditCardSecurity
 import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
-import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
-import br.ufs.nubankchallenge.core.domain.chargeback.models.Fraud
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreen
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.LockedBySystem
 import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.UnlockedByDefault
+import br.ufs.nubankchallenge.core.presentation.chargeback.ReasonRowModel
 import br.ufs.nubankchallenge.core.tests.util.Fixtures.chargebackOptions
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -40,7 +39,7 @@ class ChargebackScreenTests {
         chargebacker = mock()
         cardSecurer = mock()
         fraudPreventer = PreventiveCardBlocking(cardSecurer)
-        screen = ChargebackScreen(fraudPreventer, cardSecurer, chargebacker)
+        screen = ChargebackScreen(fraudPreventer, chargebacker)
     }
 
     @Test fun `should retrieve possible actions for chargeback`() {
@@ -78,12 +77,15 @@ class ChargebackScreenTests {
         whenever(chargebacker.sendReclaim(any())).thenReturn(operationSuccess())
 
 
-        val reclaim = ChargebackReclaim(
-                userHistory = "Não fui eu!",
-                frauds = listOf(Fraud("merchant_recognized", false))
+        val reclaims = listOf(
+                ReasonRowModel(
+                        "merchant_recognized",
+                        "Não reconheço o vendedor",
+                        false
+                )
         )
 
-        screen.sendChargebackReclaim(reclaim)
+        screen.sendChargebackReclaim("Não fui eu!", reclaims)
                 .test()
                 .assertNoErrors()
                 .assertComplete()

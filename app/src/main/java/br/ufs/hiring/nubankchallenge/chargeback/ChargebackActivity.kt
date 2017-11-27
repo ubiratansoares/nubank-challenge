@@ -13,8 +13,6 @@ import br.ufs.hiring.nubankchallenge.transaction.PurchaseDetailsActivity
 import br.ufs.hiring.nubankchallenge.util.action
 import br.ufs.hiring.nubankchallenge.util.colorForActionText
 import br.ufs.hiring.nubankchallenge.util.screenProvider
-import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackReclaim
-import br.ufs.nubankchallenge.core.domain.chargeback.models.Fraud
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
@@ -23,7 +21,7 @@ import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
 import com.afollestad.materialdialogs.MaterialDialog
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.activity_chargeback.*
 import kotlinx.android.synthetic.main.view_error_feedback.*
@@ -48,7 +46,7 @@ class ChargebackActivity : AppCompatActivity(),
                 .build()
     }
 
-    lateinit var subscription: Disposable
+    val subscriptions by lazy { CompositeDisposable() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +66,7 @@ class ChargebackActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         if (dialog.isShowing) dialog.dismiss()
-        subscription.dispose()
+        subscriptions.clear()
         super.onDestroy()
     }
 
@@ -105,13 +103,15 @@ class ChargebackActivity : AppCompatActivity(),
     override fun hideErrorState() = Action { clearErrorFeedback() }
 
     private fun retrieveChargeback(forceUpdate: Boolean = false) {
-        subscription = screen.chargebackOptions(forceUpdate)
+        val disposable = screen.chargebackOptions(forceUpdate)
                 .compose(presenter)
                 .subscribe(
                         { fillChargeback(it as ChargebackScreenModel) },
                         { Log.e("Chargeback", "Error -> $it") },
                         { Log.v("Chargeback", "Loaded with success") }
                 )
+
+        subscriptions.add(disposable)
     }
 
     private fun fillChargeback(model: ChargebackScreenModel) {
@@ -168,16 +168,14 @@ class ChargebackActivity : AppCompatActivity(),
     }
 
     private fun requestChargeback() {
-        val reclaim = ChargebackReclaim(
-                userHistory = "Não fui eu",
-                frauds = listOf(Fraud("abc", false))
-        )
-
-        dialog.show()
         val submissionView = dialog.customView.let { it as ChargebackSubmissionView }
 
-        val pipeline = screen
-                .sendChargebackReclaim(reclaim)
+        val userComment = userCommentInput.text.toString()
+        val reasons = reasonsView.adapter.let { it as ReclaimReasonsAdapter }.reasons
+
+        val disposable = screen
+                .sendChargebackReclaim(userComment, reasons)
+                .doOnSubscribe { dialog.show() }
                 .compose(submissionView.presenter)
                 .doOnError { dialog.dismiss() }
                 .subscribe(
@@ -187,6 +185,8 @@ class ChargebackActivity : AppCompatActivity(),
                         },
                         { Log.e("Chargeback", "Error -> $it") }
                 )
+
+        subscriptions.add(disposable)
     }
 
     private fun done() {
@@ -218,6 +218,6 @@ class ChargebackActivity : AppCompatActivity(),
     }
 
     private fun releaseSubscriptions() {
-        subscription.dispose()
+        subscriptions.clear()
     }
 }

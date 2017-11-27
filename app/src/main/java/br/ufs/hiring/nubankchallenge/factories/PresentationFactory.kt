@@ -25,7 +25,7 @@ object PresentationFactory {
         val blocker = InfrastructureFactory.cardBlocker()
         val preventiveBlocking = PreventiveCardBlocking(blocker)
         val chargebacker = InfrastructureFactory.chargeback()
-        return ChargebackScreen(preventiveBlocking, blocker, chargebacker, uiScheduler)
+        return ChargebackScreen(preventiveBlocking, chargebacker, uiScheduler)
     }
 
     fun creditcardBlockerScreen() = CreditcardBlockerScreen(

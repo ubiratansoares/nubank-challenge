@@ -63,5 +63,5 @@ sealed class LockpadState(val disclaimerResource: Int, val lockPadImage: Int) {
 data class ReasonRowModel(
         val id: String,
         val description: String,
-        val choosedByUser: Boolean = false
+        var choosedByUser: Boolean = false
 )

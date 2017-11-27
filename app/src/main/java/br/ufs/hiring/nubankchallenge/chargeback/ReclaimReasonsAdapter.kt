@@ -14,7 +14,7 @@ import br.ufs.nubankchallenge.core.presentation.chargeback.ReasonRowModel
  *
  */
 
-class ReclaimReasonsAdapter(private val reasons: List<ReasonRowModel>) :
+class ReclaimReasonsAdapter(val reasons: List<ReasonRowModel>) :
         RecyclerView.Adapter<Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -42,5 +42,6 @@ class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(model: ReasonRowModel) = with(itemView as Switch) {
         text = model.description
         isChecked = model.choosedByUser
+        setOnCheckedChangeListener { _, isChecked -> model.choosedByUser = isChecked }
     }
 }
