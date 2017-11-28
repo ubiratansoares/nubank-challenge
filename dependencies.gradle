@@ -30,6 +30,7 @@ ext {
     jUnitVersion = '4.12'
     assertJVersion = '3.8.0'
     mockitoKotlinVersion = '1.5.0'
+    dexMakerVersion = '2.2.0'
     roboletricVersion = '3.5.1'
     espressoCoreVersion = '3.0.1'
     espressoToolsVersion = '1.0.1'
@@ -81,14 +82,16 @@ ext {
     ]
 
     appTestDependencies = [
-            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
-            junit         : "junit:junit:${jUnitVersion}",
-            assertj       : "org.assertj:assertj-core:${assertJVersion}",
-            roboletric    : "org.robolectric:robolectric:${roboletricVersion}",
-            espressoRunner: "com.android.support.test:runner:${espressoToolsVersion}",
-            espressoRules : "com.android.support.test:rules:${espressoToolsVersion}",
-            espressoCore  : "com.android.support.test.espresso:espresso-core:${espressoCoreVersion}",
-            barista       : "com.schibsted.spain:barista:${baristaVersion}"
+            kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            junit          : "junit:junit:${jUnitVersion}",
+            assertj        : "org.assertj:assertj-core:${assertJVersion}",
+            mockito        : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoDexMaker: "com.linkedin.dexmaker:dexmaker-mockito:${dexMakerVersion}",
+            roboletric     : "org.robolectric:robolectric:${roboletricVersion}",
+            espressoRunner : "com.android.support.test:runner:${espressoToolsVersion}",
+            espressoRules  : "com.android.support.test:rules:${espressoToolsVersion}",
+            espressoCore   : "com.android.support.test.espresso:espresso-core:${espressoCoreVersion}",
+            barista        : "com.schibsted.spain:barista:${baristaVersion}"
     ]
 
 }

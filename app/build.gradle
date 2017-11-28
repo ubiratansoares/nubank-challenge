@@ -70,6 +70,9 @@ dependencies {
     testImplementation testDependencies.junit
     testImplementation testDependencies.assertj
     testImplementation testDependencies.roboletric
+    testImplementation testDependencies.mockito
+    testImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.2.0'
+
 
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation testDependencies.espressoRules

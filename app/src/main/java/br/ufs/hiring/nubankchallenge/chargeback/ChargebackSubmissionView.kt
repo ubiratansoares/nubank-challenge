@@ -63,7 +63,7 @@ class ChargebackSubmissionView @JvmOverloads constructor(
 
     private fun errorFeedback(messageId: Int) {
         enableCallToAction(callbackAtError)
-        submissionTitleLabel.text = "Contestação não recebida"
+        submissionTitleLabel.text = context.getString(R.string.title_chargeback_submission_error)
         submissionMessageLabel.text = resources.getString(messageId)
     }
 
