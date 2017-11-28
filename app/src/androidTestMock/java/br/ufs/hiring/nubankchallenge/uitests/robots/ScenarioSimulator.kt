@@ -75,4 +75,14 @@ object ScenariosProvider {
         whenever(mockWebService.submitChargeback(any()))
                 .thenReturn(scenario)
     }
+
+    fun creditcardBlocksFailsWithInternetError() {
+        val scenario = Observable.error<OperationResultPayload>(InternetUnreachable)
+        whenever(mockWebService.blockCard()).thenReturn(scenario)
+    }
+
+    fun creditcardUnblocksFailsWithInfrastructureError() {
+        val scenario = Observable.error<OperationResultPayload>(RemoteSystemDown)
+        whenever(mockWebService.unblockCard()).thenReturn(scenario)
+    }
 }

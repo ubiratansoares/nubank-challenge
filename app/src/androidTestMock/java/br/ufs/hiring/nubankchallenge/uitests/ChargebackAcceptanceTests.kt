@@ -26,7 +26,7 @@ class ChargebackAcceptanceTests {
 
     @Rule @JvmField val launcher = ScreenLauncher(ChargebackActivity::class)
 
-    @Test fun acceptServerDownScenarioOnChargebackRetrieve() {
+    @Test fun acceptRemoteSystemErrorOnChargebackRetrieve() {
         webServiceSimulation {
             serversProbablyDown()
         }
@@ -44,7 +44,7 @@ class ChargebackAcceptanceTests {
         }
     }
 
-    @Test fun acceptUndesiredScenarioOnChargebackRetrieve() {
+    @Test fun acceptUndesiredResponseOnChargebackRetrieve() {
         webServiceSimulation {
             mysteriousClientError()
         }
@@ -62,7 +62,7 @@ class ChargebackAcceptanceTests {
         }
     }
 
-    @Test fun acceptInternetErrorScenarioOnChargebackRetrieve() {
+    @Test fun acceptInternetErrorOnChargebackRetrieve() {
 
         webServiceSimulation {
             internetIssue()
@@ -181,6 +181,46 @@ class ChargebackAcceptanceTests {
                 verifyCreditcardAs(CreditcardState.UnblockedByUser)
             }
         }
+    }
+
+    @Test fun acceptUserCreditcardOperationMayFailDueInternetError() {
+        webServiceSimulation {
+            chargebackRetrieved()
+            creditcardBlocksFailsWithInternetError()
+        }
+
+        launcher.startScreen()
+
+        expectChargebackScreenAsSuch {
+
+            creditcard {
+                verifyCreditcardAs(CreditcardState.UnblockedByDefault)
+                performCreditcardBlocking()
+                internetErrorReported(launcher.activity.window)
+                verifyCreditcardAs(CreditcardState.UnblockedByDefault)
+            }
+        }
+
+    }
+
+    @Test fun acceptUserCreditcardOperationMayFailDueSystemError() {
+        webServiceSimulation {
+            chargebackRetrievedAndCreditcardBlockedPreventively()
+            creditcardUnblocksFailsWithInfrastructureError()
+        }
+
+        launcher.startScreen()
+
+        expectChargebackScreenAsSuch {
+
+            creditcard {
+                verifyCreditcardAs(CreditcardState.BlockedBySystem)
+                performCreditcardUnblocking()
+                infrastructureErrorReported(launcher.activity.window)
+                verifyCreditcardAs(CreditcardState.BlockedBySystem)
+            }
+        }
+
     }
 
     @Test fun acceptUserCanSubmitNewChargeback() {
