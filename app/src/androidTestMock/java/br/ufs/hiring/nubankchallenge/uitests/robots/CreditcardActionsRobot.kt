@@ -12,9 +12,6 @@ import com.schibsted.spain.barista.BaristaClickActions.click
  *
  */
 
-fun creditcard(func: CreditcardActionsRobot.() -> Unit) =
-        CreditcardActionsRobot().apply { func() }
-
 class CreditcardActionsRobot {
 
     fun performCreditcardBlocking() {

@@ -6,6 +6,7 @@ import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSyste
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.InternetUnreachable
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackActionsPayload
+import br.ufs.nubankchallenge.core.infrastructure.models.OperationResultPayload
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
@@ -61,5 +62,17 @@ object ScenariosProvider {
     fun reclaimedWithSuccess() {
         whenever(mockWebService.submitChargeback(any()))
                 .thenReturn(FakeResponses.operationSuccess())
+    }
+
+    fun reclaimFailsWithInternetError() {
+        val scenario = Observable.error<OperationResultPayload>(InternetUnreachable)
+        whenever(mockWebService.submitChargeback(any()))
+                .thenReturn(scenario)
+    }
+
+    fun reclaimFailsWithInfrastructureError() {
+        val scenario = Observable.error<OperationResultPayload>(RemoteSystemDown)
+        whenever(mockWebService.submitChargeback(any()))
+                .thenReturn(scenario)
     }
 }

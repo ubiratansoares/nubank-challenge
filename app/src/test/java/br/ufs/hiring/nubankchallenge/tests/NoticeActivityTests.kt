@@ -112,17 +112,7 @@ class NoticeActivityTests {
         assertThat(cancelButton.visibility).isEqualTo(View.VISIBLE)
         assertThat(cancelButton.text).isEqualTo(model.cancelButtonLabel)
     }
-
-    @Test fun `should release disposable at screen destruction`() {
-        activity = Robolectric.buildActivity(NoticeActivity::class.java)
-                .create()
-                .resume()
-                .destroy()
-                .get()
-
-        assertThat(activity.subscription.isDisposed).isTrue()
-    }
-
+    
     private fun `call to action should be visible with message`(messageResource: Int) {
         val snackText = activity.findViewById<TextView>(R.id.snackbar_text)
         assertThat(snackText).isNotNull()

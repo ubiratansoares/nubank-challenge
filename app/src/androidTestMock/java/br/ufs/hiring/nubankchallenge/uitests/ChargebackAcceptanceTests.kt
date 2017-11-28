@@ -3,7 +3,9 @@ package br.ufs.hiring.nubankchallenge.uitests
 import android.support.test.runner.AndroidJUnit4
 import android.text.SpannableString
 import br.ufs.hiring.nubankchallenge.chargeback.ChargebackActivity
-import br.ufs.hiring.nubankchallenge.uitests.robots.*
+import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
+import br.ufs.hiring.nubankchallenge.uitests.robots.expectChargebackScreenAsSuch
+import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulation
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
@@ -81,7 +83,6 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptChargebackRetrieved() {
 
-        // Translated from fake responses
         val expected = expectedScreenInfo()
 
         webServiceSimulation {
@@ -191,15 +192,48 @@ class ChargebackAcceptanceTests {
         launcher.startScreen()
 
         expectChargebackScreenAsSuch {
-            submitChargeback()
+
+            atChargebackSubmission {
+                checkSuccess()
+                closesScreenWhenDone(launcher.activity)
+            }
         }
 
-        chargebackSubmission {
-            checkSuccess()
-            closesScreenWhenDone(launcher.activity)
+    }
+
+    @Test fun acceptChargebackReclaimFailingWithInternetError() {
+        webServiceSimulation {
+            chargebackRetrieved()
+            reclaimFailsWithInternetError()
+        }
+
+        launcher.startScreen()
+
+        expectChargebackScreenAsSuch {
+
+            atChargebackSubmission {
+                internetErrorReported()
+                doesNotCloseScreenWhenDone(launcher.activity)
+            }
         }
     }
 
+    @Test fun acceptChargebackReclaimFailingWithInfrastructureError() {
+        webServiceSimulation {
+            chargebackRetrieved()
+            reclaimFailsWithInfrastructureError()
+        }
+
+        launcher.startScreen()
+
+        expectChargebackScreenAsSuch {
+
+            atChargebackSubmission {
+                infrastructureErrorReported()
+                doesNotCloseScreenWhenDone(launcher.activity)
+            }
+        }
+    }
 
     // Translated from fake responses
     private fun expectedScreenInfo() = ChargebackScreenModel(
@@ -219,5 +253,4 @@ class ChargebackAcceptanceTests {
 
             )
     )
-
 }

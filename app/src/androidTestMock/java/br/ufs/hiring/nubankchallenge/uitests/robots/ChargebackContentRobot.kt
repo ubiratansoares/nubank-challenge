@@ -43,9 +43,13 @@ class ChargebackContentRobot {
         return this
     }
 
-    fun submitChargeback(): ChargebackContentRobot {
+    fun creditcard(func: CreditcardActionsRobot.() -> Unit) =
+            CreditcardActionsRobot().apply { func() }
+
+    fun atChargebackSubmission(
+            func: ChargebackSubmissionRobot.() -> Unit): ChargebackSubmissionRobot {
         click(R.id.performChargebackButton)
-        return this
+        return ChargebackSubmissionRobot().apply { func() }
     }
 
     fun noInformationDisplayed(): ChargebackContentRobot {

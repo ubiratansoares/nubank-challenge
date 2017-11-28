@@ -4,7 +4,8 @@ import android.app.Activity
 import br.ufs.hiring.nubankchallenge.R
 import com.schibsted.spain.barista.BaristaAssertions.assertDisplayed
 import com.schibsted.spain.barista.BaristaClickActions.click
-import org.junit.Assert
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 
 /**
  *
@@ -12,8 +13,6 @@ import org.junit.Assert
  *
  */
 
-fun chargebackSubmission(func: ChargebackSubmissionRobot.() -> Unit) =
-        ChargebackSubmissionRobot().apply { func() }
 
 class ChargebackSubmissionRobot {
 
@@ -23,15 +22,29 @@ class ChargebackSubmissionRobot {
         return this
     }
 
-    infix fun closesScreenWhenDone(target: Activity): ChargebackSubmissionRobot {
-        click(R.id.submissionDone)
-        Assert.assertTrue(target.isFinishing)
+    fun internetErrorReported(): ChargebackSubmissionRobot {
+        assertDisplayed(R.string.title_chargeback_submission_error)
+        assertDisplayed(R.string.toast_internet_error)
         return this
     }
 
-    infix fun doesNotCloseScreen(target: Activity): ChargebackSubmissionRobot {
-        click(R.id.submissionDone)
-        Assert.assertFalse(target.isFinishing)
+    fun infrastructureErrorReported(): ChargebackSubmissionRobot {
+        assertDisplayed(R.string.title_chargeback_submission_error)
+        assertDisplayed(R.string.toast_error_at_operation)
         return this
     }
+
+    fun closesScreenWhenDone(target: Activity): ChargebackSubmissionRobot {
+        click(R.id.submissionDone)
+        assertTrue(target.isFinishing)
+        return this
+    }
+
+    fun doesNotCloseScreenWhenDone(target: Activity): ChargebackSubmissionRobot {
+        click(R.id.submissionDone)
+        assertFalse(target.isFinishing)
+        return this
+    }
+
+
 }
