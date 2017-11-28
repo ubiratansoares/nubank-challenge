@@ -48,6 +48,9 @@ class ChargebackSubmissionView @JvmOverloads constructor(
             visibility = View.INVISIBLE
             isEnabled = false
         }
+
+        submissionTitleLabel.text = resources.getString(R.string.title_chargeback_submission_default)
+        submissionMessageLabel.text = resources.getString(R.string.body_chargeback_submission_default)
     }
 
     fun configureWith(success: (Unit) -> Unit, error: (Unit) -> Unit) {
@@ -57,7 +60,7 @@ class ChargebackSubmissionView @JvmOverloads constructor(
 
     fun displaySuccess() {
         enableCallToAction(callbackAtSuccess)
-        submissionTitleLabel.text = context.getString(R.string.title_chargeback_submission_success)
+        submissionTitleLabel.text = resources.getString(R.string.title_chargeback_submission_success)
         submissionMessageLabel.text = resources.getString(R.string.message_submission_success)
     }
 

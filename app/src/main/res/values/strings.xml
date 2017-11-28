@@ -21,5 +21,7 @@
     <string name="message_submission_success">Fique de olho no seu email! Nos próximos 3 dias, você deverá receber um retorno sobre sua contestação</string>
     <string name="title_chargeback_submission_success">Contestação de compra recebida</string>
     <string name="title_chargeback_submission_error">Contestação não recebida</string>
+    <string name="title_chargeback_submission_default">Solicitando</string>
+    <string name="body_chargeback_submission_default">Sua contestação está sendo enviada...</string>
 
 </resources>

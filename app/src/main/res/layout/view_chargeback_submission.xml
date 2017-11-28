@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Solicitando"
+        android:text="@string/title_chargeback_submission_default"
         android:layout_marginTop="@dimen/eight_dips"
         android:layout_marginBottom="@dimen/eight_dips"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/eight_dips"
-        android:text="Sua contestação está sendo enviada..."
+        android:text="@string/body_chargeback_submission_default"
         android:lineSpacingExtra="@dimen/eight_dips"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         tools:visibility="visible" />
