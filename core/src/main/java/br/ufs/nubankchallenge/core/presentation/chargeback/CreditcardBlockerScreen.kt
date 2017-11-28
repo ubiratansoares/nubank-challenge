@@ -16,15 +16,15 @@ class CreditcardBlockerScreen(
         private val cardSecurer: CreditCardSecurity,
         private val uiScheduler: Scheduler = Schedulers.trampoline()) : ViewModel() {
 
-    fun unblockCreditcard(): Observable<LockpadState> =
+    fun unblockCreditcard(): Observable<CreditcardState> =
             cardSecurer
                     .unblockSolicitation()
-                    .map { LockpadState.UnlockedByUser as LockpadState }
+                    .map { CreditcardState.UnlockedByUser as CreditcardState }
                     .observeOn(uiScheduler)
 
-    fun blockCreditcard(): Observable<LockpadState> =
+    fun blockCreditcard(): Observable<CreditcardState> =
             cardSecurer
                     .blockSolicitation()
-                    .map { LockpadState.LockedByUser as LockpadState }
+                    .map { CreditcardState.LockedByUser as CreditcardState }
                     .observeOn(uiScheduler)
 }

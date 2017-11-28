@@ -2,7 +2,7 @@ package br.ufs.nubankchallenge.core.tests.presentation
 
 import br.ufs.nubankchallenge.core.domain.chargeback.CreditCardSecurity
 import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardBlockerScreen
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
@@ -32,7 +32,7 @@ class CreditcardBlockerScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it == LockpadState.LockedByUser }
+                .assertValue { it == CreditcardState.LockedByUser }
     }
 
     @Test fun `should unblock creditcard at user decision`() {
@@ -44,7 +44,7 @@ class CreditcardBlockerScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it == LockpadState.UnlockedByUser }
+                .assertValue { it == CreditcardState.UnlockedByUser }
     }
 
     private fun `backend now accepts card unblocking`() {

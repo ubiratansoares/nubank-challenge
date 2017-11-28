@@ -6,8 +6,8 @@ import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreen
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.LockedBySystem
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.UnlockedByDefault
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.LockedBySystem
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.UnlockedByDefault
 import br.ufs.nubankchallenge.core.presentation.chargeback.ReasonRowModel
 import br.ufs.nubankchallenge.core.tests.util.Fixtures.chargebackOptions
 import com.nhaarman.mockito_kotlin.any
@@ -67,7 +67,7 @@ class ChargebackScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it.lockpadState == LockedBySystem }
+                .assertValue { it.creditcardState == LockedBySystem }
     }
 
     @Test fun `should dispatch new reclaim for chargeback`() {

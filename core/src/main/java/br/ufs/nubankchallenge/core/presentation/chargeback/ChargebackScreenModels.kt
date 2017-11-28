@@ -4,7 +4,7 @@ import android.text.Html
 import android.text.Spanned
 import br.ufs.nubankchallenge.core.R
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.*
 
 /**
  *
@@ -15,26 +15,26 @@ import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
 data class ChargebackScreenModel(
         val screenTitle: String,
         val commentHint: Spanned,
-        val lockpadState: LockpadState,
+        val creditcardState: CreditcardState,
         val reasons: List<ReasonRowModel>) {
 
     companion object Mapper {
         operator fun invoke(
                 options: ChargebackOptions,
-                actualLockpadState: LockpadState): ChargebackScreenModel {
+                actualCreditcardState: CreditcardState): ChargebackScreenModel {
 
             return with(options) {
                 ChargebackScreenModel(
                         screenTitle = disclaimer,
                         commentHint = Html.fromHtml(rawCommentHint),
-                        lockpadState = updateLockpad(shouldBlockCreditcard, actualLockpadState),
+                        creditcardState = updateLockpad(shouldBlockCreditcard, actualCreditcardState),
                         reasons = possibleReasons.map { ReasonRowModel(it.id, it.title) }
                 )
             }
         }
 
         private fun updateLockpad(shouldBlock: Boolean,
-                                  actual: LockpadState): LockpadState {
+                                  actual: CreditcardState): CreditcardState {
 
             return when (actual) {
                 is LockedByUser -> actual
@@ -45,18 +45,18 @@ data class ChargebackScreenModel(
     }
 }
 
-sealed class LockpadState(val disclaimerResource: Int, val lockPadImage: Int) {
+sealed class CreditcardState(val disclaimerResource: Int, val lockPadImage: Int) {
     object LockedBySystem :
-            LockpadState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
+            CreditcardState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
 
     object LockedByUser :
-            LockpadState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
+            CreditcardState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
 
     object UnlockedByDefault :
-            LockpadState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
+            CreditcardState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
 
     object UnlockedByUser :
-            LockpadState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
+            CreditcardState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
 }
 
 

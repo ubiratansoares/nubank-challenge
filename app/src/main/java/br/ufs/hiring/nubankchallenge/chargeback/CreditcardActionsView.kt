@@ -12,15 +12,15 @@ import br.ufs.hiring.nubankchallenge.util.compoundDrawableLeft
 import br.ufs.hiring.nubankchallenge.util.screenProvider
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState.*
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.*
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
-import kotlinx.android.synthetic.main.view_lockpad_state.view.*
+import kotlinx.android.synthetic.main.view_creditcard_state.view.*
 
 /**
  *
@@ -38,7 +38,7 @@ class CreditcardActionsView @JvmOverloads constructor(
     private val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
     private val subscriptions by lazy { CompositeDisposable() }
 
-    private var actualState: LockpadState = UnlockedByDefault
+    private var actualState: CreditcardState = UnlockedByDefault
 
     init {
         setOnClickListener {
@@ -74,16 +74,16 @@ class CreditcardActionsView @JvmOverloads constructor(
         super.onDetachedFromWindow()
     }
 
-    fun setActualLockingState(newState: LockpadState) {
+    fun setActualLockingState(newState: CreditcardState) {
         actualState = newState
     }
 
-    private fun perform(operation: Observable<LockpadState>) {
+    private fun perform(operation: Observable<CreditcardState>) {
         val subscription = operation
                 .doOnSubscribe { toProcessingState() }
                 .compose(presenter)
                 .subscribe(
-                        { updateState(it as LockpadState) },
+                        { updateState(it as CreditcardState) },
                         { Log.e(TAG, "Error -> $it") },
                         { Log.v(TAG, "Done") }
                 )
@@ -91,7 +91,7 @@ class CreditcardActionsView @JvmOverloads constructor(
         subscriptions.add(subscription)
     }
 
-    private fun updateState(newState: LockpadState) {
+    private fun updateState(newState: CreditcardState) {
         actualState = newState
         applyActualState()
     }

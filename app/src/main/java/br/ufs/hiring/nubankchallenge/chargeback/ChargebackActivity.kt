@@ -16,7 +16,7 @@ import br.ufs.hiring.nubankchallenge.util.screenProvider
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
-import br.ufs.nubankchallenge.core.presentation.chargeback.LockpadState
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
 import br.ufs.nubankchallenge.core.presentation.errorstate.ErrorStateView
 import br.ufs.nubankchallenge.core.presentation.loading.LoadingView
 import br.ufs.nubankchallenge.core.presentation.networking.NetworkingErrorView
@@ -25,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.activity_chargeback.*
 import kotlinx.android.synthetic.main.view_error_feedback.*
-import kotlinx.android.synthetic.main.view_lockpad_state.*
+import kotlinx.android.synthetic.main.view_creditcard_state.*
 
 /**
  *
@@ -126,12 +126,12 @@ class ChargebackActivity : AppCompatActivity(),
             }
         }
 
-        fillCreditcardInfo(model.lockpadState)
+        fillCreditcardInfo(model.creditcardState)
         reasonsView.adapter = ReclaimReasonsAdapter(model.reasons)
     }
 
-    private fun fillCreditcardInfo(lockpadState: LockpadState) {
-        lockpadView.setActualLockingState(lockpadState)
+    private fun fillCreditcardInfo(creditcardState: CreditcardState) {
+        lockpadView.setActualLockingState(creditcardState)
     }
 
     private fun setupViews() {

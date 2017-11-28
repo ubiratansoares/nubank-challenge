@@ -76,7 +76,7 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <include layout="@layout/view_lockpad_state" />
+        <include layout="@layout/view_creditcard_state" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reasonsView"
