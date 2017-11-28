@@ -18,6 +18,7 @@ data class ChargebackScreenModel(
         val creditcardState: CreditcardState,
         val reasons: List<ReasonRowModel>) {
 
+    @Suppress("DEPRECATION")
     companion object Mapper {
         operator fun invoke(
                 options: ChargebackOptions,

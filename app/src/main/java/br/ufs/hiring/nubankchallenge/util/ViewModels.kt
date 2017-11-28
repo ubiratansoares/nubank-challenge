@@ -12,6 +12,7 @@ import android.view.View
  *
  */
 
+@Suppress("UNCHECKED_CAST")
 inline fun <reified VM : ViewModel> FragmentActivity.screenProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> VM) = lazy(mode) {
@@ -23,14 +24,7 @@ inline fun <reified VM : ViewModel> FragmentActivity.screenProvider(
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> FragmentActivity.withFactory(
-        mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
-        crossinline factory: () -> ViewModelProvider.Factory) = lazy(mode) {
-
-    ViewModelProviders.of(this, factory()).get(VM::class.java)
-
-}
-
+@Suppress("UNCHECKED_CAST")
 inline fun <reified VM : ViewModel> View.screenProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> VM) = lazy(mode) {

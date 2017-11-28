@@ -30,6 +30,7 @@ data class NoticeScreenModel(
         return super.equals(other)
     }
 
+    @Suppress("DEPRECATION")
     companion object Mapper {
         operator fun invoke(notice: ChargebackNotice): NoticeScreenModel {
             return with(notice) {
