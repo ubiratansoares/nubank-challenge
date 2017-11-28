@@ -6,6 +6,7 @@ import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSyste
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
 import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.InternetUnreachable
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackActionsPayload
+import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload
 import br.ufs.nubankchallenge.core.infrastructure.models.OperationResultPayload
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
@@ -17,30 +18,49 @@ import io.reactivex.Observable
  *
  */
 
-fun webServiceSimulatedWith(func: ScenariosProvider.() -> Unit) {
-    ScenariosProvider.apply { func() }
+fun webServiceSimulatedWith(func: ScenarioSimulator.() -> Unit) {
+    ScenarioSimulator.apply { func() }
 }
 
-object ScenariosProvider {
+object ScenarioSimulator {
 
     private val mockWebService by lazy { WebServiceFactory.webservice }
 
-    fun serversProbablyDown() {
+    fun serversProbablyDownWhenRetrievingNotice() {
+        val scenario = Observable.error<ChargebackNoticePayload>(RemoteSystemDown)
+        whenever(mockWebService.chargebackNotice()).thenReturn(scenario)
+    }
+
+    fun serversProbablyDownWhenRetrievingChargeback() {
         val scenario = Observable.error<ChargebackActionsPayload>(RemoteSystemDown)
         whenever(mockWebService.chargebackActions()).thenReturn(scenario)
     }
 
-    fun mysteriousClientError() {
+    fun undesiredResponseWhenRetrievingNotice() {
+        val scenario = Observable.error<ChargebackNoticePayload>(UndesiredResponse)
+        whenever(mockWebService.chargebackNotice()).thenReturn(scenario)
+    }
+
+    fun undesiredResponseWhenRetrievingChargeback() {
         val scenario = Observable.error<ChargebackActionsPayload>(UndesiredResponse)
         whenever(mockWebService.chargebackActions()).thenReturn(scenario)
     }
 
-    fun internetIssue() {
+    fun internetIssueWhenRetrievingChargeback() {
         val scenario = Observable.error<ChargebackActionsPayload>(InternetUnreachable)
         whenever(mockWebService.chargebackActions()).thenReturn(scenario)
     }
 
-    fun chargebackRetrieved() {
+    fun internetIssueWhenRetrievingNotice() {
+        val scenario = Observable.error<ChargebackNoticePayload>(InternetUnreachable)
+        whenever(mockWebService.chargebackNotice()).thenReturn(scenario)
+    }
+
+    fun noticeRetrievedWithSuccess() {
+        whenever(mockWebService.chargebackNotice()).thenReturn(FakeResponses.noticeRetrived())
+    }
+
+    fun chargebackRetrievedWithSuccess() {
         whenever(mockWebService.chargebackActions())
                 .thenReturn(FakeResponses.chargebackActions())
     }
@@ -59,18 +79,18 @@ object ScenariosProvider {
         whenever(mockWebService.unblockCard()).thenReturn(FakeResponses.operationSuccess())
     }
 
-    fun reclaimedWithSuccess() {
+    fun purchaseReclaimedWithSuccess() {
         whenever(mockWebService.submitChargeback(any()))
                 .thenReturn(FakeResponses.operationSuccess())
     }
 
-    fun reclaimFailsWithInternetError() {
+    fun purchaseReclaimFailsWithInternetError() {
         val scenario = Observable.error<OperationResultPayload>(InternetUnreachable)
         whenever(mockWebService.submitChargeback(any()))
                 .thenReturn(scenario)
     }
 
-    fun reclaimFailsWithInfrastructureError() {
+    fun purchaseReclaimFailsWithInfrastructureError() {
         val scenario = Observable.error<OperationResultPayload>(RemoteSystemDown)
         whenever(mockWebService.submitChargeback(any()))
                 .thenReturn(scenario)
@@ -85,4 +105,8 @@ object ScenariosProvider {
         val scenario = Observable.error<OperationResultPayload>(RemoteSystemDown)
         whenever(mockWebService.unblockCard()).thenReturn(scenario)
     }
+
+
+
+
 }

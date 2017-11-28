@@ -6,6 +6,7 @@ import br.ufs.hiring.nubankchallenge.factories.WebServiceFactory
 import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
 import br.ufs.hiring.nubankchallenge.uitests.robots.noticeInformation
+import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.Assert.assertTrue
@@ -21,7 +22,10 @@ class NoticeAcceptanceTests {
     private val mockRestAPI by lazy { WebServiceFactory.webservice }
 
     @Test fun acceptServerDownScenario() {
-        whenever(mockRestAPI.chargebackNotice()).thenReturn(FakeResponses.serversMaybeDown())
+
+        webServiceSimulatedWith {
+            serversProbablyDownWhenRetrievingNotice()
+        }
 
         launcher.startScreen()
 
@@ -33,7 +37,9 @@ class NoticeAcceptanceTests {
 
     @Test fun acceptUndesiredResponseScenario() {
 
-        whenever(mockRestAPI.chargebackNotice()).thenReturn(FakeResponses.mysteriousClientError())
+        webServiceSimulatedWith {
+            undesiredResponseWhenRetrievingNotice()
+        }
 
         launcher.startScreen()
 
@@ -45,26 +51,40 @@ class NoticeAcceptanceTests {
 
     @Test fun acceptNetworkingErrorScenario() {
 
-        whenever(mockRestAPI.chargebackNotice()).thenReturn(FakeResponses.someNetworkingError())
+        webServiceSimulatedWith {
+            internetIssueWhenRetrievingNotice()
+        }
 
         launcher.startScreen()
         noticeUnavailable()
+
         errorFeedback {
             internetIssueReported()
         }
     }
 
     @Test fun acceptNoticeRetrievedScenario() {
-        whenever(mockRestAPI.chargebackNotice()).thenReturn(FakeResponses.noticeRetrived())
-        launcher.startScreen()
 
+        webServiceSimulatedWith {
+            noticeRetrievedWithSuccess()
+        }
+
+        launcher.startScreen()
         verifyNoticeDisplayed()
     }
 
     @Test fun shouldAcceptErrorRecovering() {
-        whenever(mockRestAPI.chargebackNotice())
-                .thenReturn(FakeResponses.someNetworkingError(), FakeResponses.noticeRetrived())
+
+        webServiceSimulatedWith {
+            internetIssueWhenRetrievingNotice()
+        }
+
         launcher.startScreen()
+
+        webServiceSimulatedWith {
+            noticeRetrievedWithSuccess()
+        }
+
         noticeInformation { retry() }
         verifyNoticeDisplayed()
     }

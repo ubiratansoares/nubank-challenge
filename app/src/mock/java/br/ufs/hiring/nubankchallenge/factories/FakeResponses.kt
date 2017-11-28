@@ -1,8 +1,5 @@
 package br.ufs.hiring.nubankchallenge.factories
 
-import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
-import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
-import br.ufs.nubankchallenge.core.domain.errors.NetworkingIssue.InternetUnreachable
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackActionsPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload
 import br.ufs.nubankchallenge.core.infrastructure.models.OperationResultPayload
@@ -45,15 +42,6 @@ object FakeResponses {
         )
         return Observable.just(payload)
     }
-
-    fun someNetworkingError(): Observable<ChargebackNoticePayload>
-            = Observable.error(InternetUnreachable)
-
-    fun serversMaybeDown(): Observable<ChargebackNoticePayload>
-            = Observable.error(RemoteSystemDown)
-
-    fun mysteriousClientError(): Observable<ChargebackNoticePayload>
-            = Observable.error(UndesiredResponse)
 
     private fun fakeNoticeResponse(): String {
         return "{\n" +

@@ -28,7 +28,7 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptRemoteSystemErrorOnChargebackRetrieve() {
         webServiceSimulatedWith {
-            serversProbablyDown()
+            serversProbablyDownWhenRetrievingChargeback()
         }
 
         launcher.startScreen()
@@ -46,7 +46,7 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptUndesiredResponseOnChargebackRetrieve() {
         webServiceSimulatedWith {
-            mysteriousClientError()
+            undesiredResponseWhenRetrievingChargeback()
         }
 
         launcher.startScreen()
@@ -65,7 +65,7 @@ class ChargebackAcceptanceTests {
     @Test fun acceptInternetErrorOnChargebackRetrieve() {
 
         webServiceSimulatedWith {
-            internetIssue()
+            internetIssueWhenRetrievingChargeback()
         }
 
         launcher.startScreen()
@@ -86,7 +86,7 @@ class ChargebackAcceptanceTests {
         val expected = expectedScreenInfo()
 
         webServiceSimulatedWith {
-            chargebackRetrieved()
+            chargebackRetrievedWithSuccess()
         }
 
         launcher.startScreen()
@@ -139,7 +139,7 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptUserCanCancelChargeback() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
+            chargebackRetrievedWithSuccess()
         }
 
         launcher.startScreen()
@@ -150,7 +150,7 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptUserCanBlockCreditcard() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
+            chargebackRetrievedWithSuccess()
             creditcardBlocksWithSuccess()
         }
 
@@ -187,7 +187,7 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptUserCreditcardOperationMayFailDueInternetError() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
+            chargebackRetrievedWithSuccess()
             creditcardBlocksFailsWithInternetError()
         }
 
@@ -227,8 +227,8 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptUserCanSubmitNewChargeback() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
-            reclaimedWithSuccess()
+            chargebackRetrievedWithSuccess()
+            purchaseReclaimedWithSuccess()
         }
 
         launcher.startScreen()
@@ -245,8 +245,8 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptChargebackReclaimMayFailWithInternetError() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
-            reclaimFailsWithInternetError()
+            chargebackRetrievedWithSuccess()
+            purchaseReclaimFailsWithInternetError()
         }
 
         launcher.startScreen()
@@ -262,8 +262,8 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptChargebackReclaimMayWithInfrastructureError() {
         webServiceSimulatedWith {
-            chargebackRetrieved()
-            reclaimFailsWithInfrastructureError()
+            chargebackRetrievedWithSuccess()
+            purchaseReclaimFailsWithInfrastructureError()
         }
 
         launcher.startScreen()
