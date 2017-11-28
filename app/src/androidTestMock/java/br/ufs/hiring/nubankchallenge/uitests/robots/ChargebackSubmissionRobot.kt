@@ -16,7 +16,7 @@ import org.junit.Assert.assertTrue
 
 class ChargebackSubmissionRobot {
 
-    fun checkSuccess(): ChargebackSubmissionRobot {
+    fun reclaimSentWithSuccess(): ChargebackSubmissionRobot {
         assertDisplayed(R.string.title_chargeback_submission_success)
         assertDisplayed(R.string.message_submission_success)
         return this

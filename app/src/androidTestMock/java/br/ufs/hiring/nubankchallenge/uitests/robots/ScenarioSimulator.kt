@@ -17,7 +17,7 @@ import io.reactivex.Observable
  *
  */
 
-fun webServiceSimulation(func: ScenariosProvider.() -> Unit) {
+fun webServiceSimulatedWith(func: ScenariosProvider.() -> Unit) {
     ScenariosProvider.apply { func() }
 }
 

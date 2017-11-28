@@ -3,9 +3,9 @@ package br.ufs.hiring.nubankchallenge.uitests
 import android.support.test.runner.AndroidJUnit4
 import android.text.SpannableString
 import br.ufs.hiring.nubankchallenge.chargeback.ChargebackActivity
+import br.ufs.hiring.nubankchallenge.uitests.robots.chargebackScreenIsSuchThat
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
-import br.ufs.hiring.nubankchallenge.uitests.robots.expectChargebackScreenAsSuch
-import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulation
+import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
@@ -27,13 +27,13 @@ class ChargebackAcceptanceTests {
     @Rule @JvmField val launcher = ScreenLauncher(ChargebackActivity::class)
 
     @Test fun acceptRemoteSystemErrorOnChargebackRetrieve() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             serversProbablyDown()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
             noInformationDisplayed()
             loadingIndicatorHidden()
             actionButtonsUnavailable()
@@ -45,13 +45,13 @@ class ChargebackAcceptanceTests {
     }
 
     @Test fun acceptUndesiredResponseOnChargebackRetrieve() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             mysteriousClientError()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
             noInformationDisplayed()
             loadingIndicatorHidden()
             actionButtonsUnavailable()
@@ -64,13 +64,13 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptInternetErrorOnChargebackRetrieve() {
 
-        webServiceSimulation {
+        webServiceSimulatedWith {
             internetIssue()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
             noInformationDisplayed()
             loadingIndicatorHidden()
             actionButtonsUnavailable()
@@ -85,19 +85,19 @@ class ChargebackAcceptanceTests {
 
         val expected = expectedScreenInfo()
 
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrieved()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
             loadingIndicatorHidden()
             actionButtonsAvailable()
             verifyContentsWith(expected)
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.UnblockedByDefault)
             }
 
@@ -110,21 +110,23 @@ class ChargebackAcceptanceTests {
 
     @Test fun acceptChargebackRetrievedWithPreventiveCardBlocking() {
 
-        val expected = expectedScreenInfo().copy(creditcardState = CreditcardState.BlockedBySystem)
+        val expected = expectedScreenInfo().copy(
+                creditcardState = CreditcardState.BlockedBySystem
+        )
 
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrievedAndCreditcardBlockedPreventively()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
             loadingIndicatorHidden()
             actionButtonsAvailable()
             verifyContentsWith(expected)
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.BlockedBySystem)
             }
 
@@ -136,27 +138,27 @@ class ChargebackAcceptanceTests {
     }
 
     @Test fun acceptUserCanCancelChargeback() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrieved()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch { leaveChargeback() }
+        chargebackScreenIsSuchThat { leaveChargeback() }
         assertTrue(launcher.activity.isFinishing)
     }
 
     @Test fun acceptUserCanBlockCreditcard() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrieved()
             creditcardBlocksWithSuccess()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.UnblockedByDefault)
                 performCreditcardBlocking()
                 verifyCreditcardAs(CreditcardState.BlockedByUser)
@@ -165,17 +167,17 @@ class ChargebackAcceptanceTests {
 
     }
 
-    @Test fun acceptUserCanUnblockCreditcardWhenPreventivelyBlocked() {
-        webServiceSimulation {
+    @Test fun acceptUserCanUnblockCreditcardEvenIfPreventivelyBlocked() {
+        webServiceSimulatedWith {
             chargebackRetrievedAndCreditcardBlockedPreventively()
             creditcardUnblocksWithSuccess()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.BlockedBySystem)
                 performCreditcardUnblocking()
                 verifyCreditcardAs(CreditcardState.UnblockedByUser)
@@ -184,16 +186,16 @@ class ChargebackAcceptanceTests {
     }
 
     @Test fun acceptUserCreditcardOperationMayFailDueInternetError() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrieved()
             creditcardBlocksFailsWithInternetError()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.UnblockedByDefault)
                 performCreditcardBlocking()
                 internetErrorReported(launcher.activity.window)
@@ -203,17 +205,17 @@ class ChargebackAcceptanceTests {
 
     }
 
-    @Test fun acceptUserCreditcardOperationMayFailDueSystemError() {
-        webServiceSimulation {
+    @Test fun acceptUserCreditcardOperationMayFailWithInfrastructureError() {
+        webServiceSimulatedWith {
             chargebackRetrievedAndCreditcardBlockedPreventively()
             creditcardUnblocksFailsWithInfrastructureError()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
-            creditcard {
+            onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.BlockedBySystem)
                 performCreditcardUnblocking()
                 infrastructureErrorReported(launcher.activity.window)
@@ -224,32 +226,32 @@ class ChargebackAcceptanceTests {
     }
 
     @Test fun acceptUserCanSubmitNewChargeback() {
-        webServiceSimulation {
+        webServiceSimulatedWith {
             chargebackRetrieved()
             reclaimedWithSuccess()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
             atChargebackSubmission {
-                checkSuccess()
+                reclaimSentWithSuccess()
                 closesScreenWhenDone(launcher.activity)
             }
         }
 
     }
 
-    @Test fun acceptChargebackReclaimFailingWithInternetError() {
-        webServiceSimulation {
+    @Test fun acceptChargebackReclaimMayFailWithInternetError() {
+        webServiceSimulatedWith {
             chargebackRetrieved()
             reclaimFailsWithInternetError()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
             atChargebackSubmission {
                 internetErrorReported()
@@ -258,15 +260,15 @@ class ChargebackAcceptanceTests {
         }
     }
 
-    @Test fun acceptChargebackReclaimFailingWithInfrastructureError() {
-        webServiceSimulation {
+    @Test fun acceptChargebackReclaimMayWithInfrastructureError() {
+        webServiceSimulatedWith {
             chargebackRetrieved()
             reclaimFailsWithInfrastructureError()
         }
 
         launcher.startScreen()
 
-        expectChargebackScreenAsSuch {
+        chargebackScreenIsSuchThat {
 
             atChargebackSubmission {
                 infrastructureErrorReported()

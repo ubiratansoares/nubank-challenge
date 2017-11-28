@@ -11,7 +11,7 @@ import com.schibsted.spain.barista.BaristaClickActions.click
  *
  */
 
-fun expectChargebackScreenAsSuch(func: ChargebackContentRobot.() -> Unit) =
+fun chargebackScreenIsSuchThat(func: ChargebackContentRobot.() -> Unit) =
         ChargebackContentRobot().apply { func() }
 
 class ChargebackContentRobot {
@@ -43,13 +43,17 @@ class ChargebackContentRobot {
         return this
     }
 
-    fun creditcard(func: CreditcardActionsRobot.() -> Unit) =
+    fun onCreditcardInteraction(func: CreditcardActionsRobot.() -> Unit) =
             CreditcardActionsRobot().apply { func() }
 
     fun atChargebackSubmission(
             func: ChargebackSubmissionRobot.() -> Unit): ChargebackSubmissionRobot {
         click(R.id.performChargebackButton)
         return ChargebackSubmissionRobot().apply { func() }
+    }
+
+    fun errorFeedback() {
+
     }
 
     fun noInformationDisplayed(): ChargebackContentRobot {
