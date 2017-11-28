@@ -19,12 +19,12 @@ class CreditcardBlockerScreen(
     fun unblockCreditcard(): Observable<CreditcardState> =
             cardSecurer
                     .unblockSolicitation()
-                    .map { CreditcardState.UnlockedByUser as CreditcardState }
+                    .map { CreditcardState.UnblockedByUser as CreditcardState }
                     .observeOn(uiScheduler)
 
     fun blockCreditcard(): Observable<CreditcardState> =
             cardSecurer
                     .blockSolicitation()
-                    .map { CreditcardState.LockedByUser as CreditcardState }
+                    .map { CreditcardState.BlockedByUser as CreditcardState }
                     .observeOn(uiScheduler)
 }

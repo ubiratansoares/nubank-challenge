@@ -38,25 +38,25 @@ data class ChargebackScreenModel(
                                   actual: CreditcardState): CreditcardState {
 
             return when (actual) {
-                is LockedByUser -> actual
-                is UnlockedByUser -> actual
-                else -> if (shouldBlock) return LockedBySystem else UnlockedByDefault
+                is BlockedByUser -> actual
+                is UnblockedByUser -> actual
+                else -> if (shouldBlock) return BlockedBySystem else UnblockedByDefault
             }
         }
     }
 }
 
 sealed class CreditcardState(val disclaimerResource: Int, val lockPadImage: Int) {
-    object LockedBySystem :
+    object BlockedBySystem :
             CreditcardState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
 
-    object LockedByUser :
+    object BlockedByUser :
             CreditcardState(R.string.message_cardblocked, R.drawable.ic_chargeback_lock)
 
-    object UnlockedByDefault :
+    object UnblockedByDefault :
             CreditcardState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
 
-    object UnlockedByUser :
+    object UnblockedByUser :
             CreditcardState(R.string.message_cardunblocked, R.drawable.ic_chargeback_unlock)
 }
 

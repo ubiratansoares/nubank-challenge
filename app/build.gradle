@@ -44,6 +44,10 @@ android {
             includeAndroidResources = true
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -71,8 +75,10 @@ dependencies {
     testImplementation testDependencies.assertj
     testImplementation testDependencies.roboletric
     testImplementation testDependencies.mockito
-    testImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.2.0'
+    testImplementation testDependencies.mockitoDexMaker
 
+    mockImplementation testDependencies.mockito
+    mockImplementation testDependencies.mockitoDexMaker
 
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation testDependencies.espressoRules

@@ -6,8 +6,8 @@ import br.ufs.nubankchallenge.core.domain.chargeback.PreventiveCardBlocking
 import br.ufs.nubankchallenge.core.domain.chargeback.models.ChargebackOptions
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreen
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
-import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.LockedBySystem
-import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.UnlockedByDefault
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.BlockedBySystem
+import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState.UnblockedByDefault
 import br.ufs.nubankchallenge.core.presentation.chargeback.ReasonRowModel
 import br.ufs.nubankchallenge.core.tests.util.Fixtures.chargebackOptions
 import com.nhaarman.mockito_kotlin.any
@@ -44,7 +44,7 @@ class ChargebackScreenTests {
 
     @Test fun `should retrieve possible actions for chargeback`() {
         val options = chargebackOptions(blockCard = false)
-        val expected = ChargebackScreenModel(options, UnlockedByDefault)
+        val expected = ChargebackScreenModel(options, UnblockedByDefault)
 
         whenever(chargebacker.possibleActions())
                 .thenReturn(Observable.just(options))
@@ -67,7 +67,7 @@ class ChargebackScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it.creditcardState == LockedBySystem }
+                .assertValue { it.creditcardState == BlockedBySystem }
     }
 
     @Test fun `should dispatch new reclaim for chargeback`() {

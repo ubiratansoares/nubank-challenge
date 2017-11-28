@@ -32,7 +32,7 @@ class CreditcardBlockerScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it == CreditcardState.LockedByUser }
+                .assertValue { it == CreditcardState.BlockedByUser }
     }
 
     @Test fun `should unblock creditcard at user decision`() {
@@ -44,7 +44,7 @@ class CreditcardBlockerScreenTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { it == CreditcardState.UnlockedByUser }
+                .assertValue { it == CreditcardState.UnblockedByUser }
     }
 
     private fun `backend now accepts card unblocking`() {

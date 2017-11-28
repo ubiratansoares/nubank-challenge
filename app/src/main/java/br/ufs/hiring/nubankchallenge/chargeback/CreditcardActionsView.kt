@@ -38,15 +38,15 @@ class CreditcardActionsView @JvmOverloads constructor(
     private val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
     private val subscriptions by lazy { CompositeDisposable() }
 
-    private var actualState: CreditcardState = UnlockedByDefault
+    private var actualState: CreditcardState = UnblockedByDefault
 
     init {
         setOnClickListener {
             when (actualState) {
-                is LockedBySystem -> perform(screen.unblockCreditcard())
-                is UnlockedByDefault -> perform(screen.blockCreditcard())
-                is LockedByUser -> perform(screen.unblockCreditcard())
-                is UnlockedByUser -> perform(screen.blockCreditcard())
+                is BlockedBySystem -> perform(screen.unblockCreditcard())
+                is UnblockedByDefault -> perform(screen.blockCreditcard())
+                is BlockedByUser -> perform(screen.unblockCreditcard())
+                is UnblockedByUser -> perform(screen.blockCreditcard())
             }
         }
     }
@@ -74,8 +74,8 @@ class CreditcardActionsView @JvmOverloads constructor(
         super.onDetachedFromWindow()
     }
 
-    fun setActualLockingState(newState: CreditcardState) {
-        actualState = newState
+    fun setActualCreditcardState(newState: CreditcardState) {
+        updateState(newState)
     }
 
     private fun perform(operation: Observable<CreditcardState>) {

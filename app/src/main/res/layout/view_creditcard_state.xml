@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<br.ufs.hiring.nubankchallenge.chargeback.CreditcardActionsView xmlns:android="http://schemas.android.com/apk/res/android"
+<br.ufs.hiring.nubankchallenge.chargeback.CreditcardActionsView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lockpadView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

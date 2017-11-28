@@ -49,7 +49,7 @@ class ChargebackScreen(
         return chargebacker
                 .possibleActions()
                 .compose(fraudPreventer)
-                .map { ChargebackScreenModel(it, CreditcardState.UnlockedByDefault) }
+                .map { ChargebackScreenModel(it, CreditcardState.UnblockedByDefault) }
                 .doOnNext { actualState = it }
                 .observeOn(uiScheduler)
                 .compose(Replayer())

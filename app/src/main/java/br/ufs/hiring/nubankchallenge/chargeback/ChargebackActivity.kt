@@ -24,8 +24,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.activity_chargeback.*
-import kotlinx.android.synthetic.main.view_error_feedback.*
 import kotlinx.android.synthetic.main.view_creditcard_state.*
+import kotlinx.android.synthetic.main.view_error_feedback.*
 
 /**
  *
@@ -131,7 +131,7 @@ class ChargebackActivity : AppCompatActivity(),
     }
 
     private fun fillCreditcardInfo(creditcardState: CreditcardState) {
-        lockpadView.setActualLockingState(creditcardState)
+        lockpadView.setActualCreditcardState(creditcardState)
     }
 
     private fun setupViews() {
