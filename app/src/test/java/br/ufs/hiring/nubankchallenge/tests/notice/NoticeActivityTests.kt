@@ -1,4 +1,4 @@
-package br.ufs.hiring.nubankchallenge.tests
+package br.ufs.hiring.nubankchallenge.tests.notice
 
 import android.text.SpannableString
 import android.view.View

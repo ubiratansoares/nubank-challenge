@@ -1,4 +1,4 @@
-package br.ufs.hiring.nubankchallenge.tests
+package br.ufs.hiring.nubankchallenge.tests.widget
 
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
