@@ -39,11 +39,5 @@ class CreditcardActionsRobot {
                 .check(matches(isDisplayed()))
     }
 
-
-    fun infrastructureErrorReported(window: Window) {
-        onView(withText(R.string.toast_error_at_operation))
-                .inRoot(withDecorView(not(window.decorView)))
-                .check(matches(isDisplayed()))
-    }
 }
 

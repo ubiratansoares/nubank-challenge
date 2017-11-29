@@ -95,16 +95,15 @@ object ScenarioSimulator {
                 .thenReturn(scenario)
     }
 
-    fun creditcardBlocksFailsWithInternetError() {
+    fun creditcardBlockFailsWithInternetError() {
         val scenario = Observable.error<OperationResultPayload>(InternetUnreachable)
         whenever(mockWebService.blockCard()).thenReturn(scenario)
     }
 
-    fun creditcardUnblocksFailsWithInfrastructureError() {
-        val scenario = Observable.error<OperationResultPayload>(RemoteSystemDown)
+    fun creditcardUnblockFailsWithInternetError() {
+        val scenario = Observable.error<OperationResultPayload>(InternetUnreachable)
         whenever(mockWebService.unblockCard()).thenReturn(scenario)
     }
-
 
     fun allResponsesSucceed() {
         noticeRetrievedWithSuccess()
@@ -113,4 +112,5 @@ object ScenarioSimulator {
         creditcardUnblocksWithSuccess()
         purchaseReclaimedWithSuccess()
     }
+
 }

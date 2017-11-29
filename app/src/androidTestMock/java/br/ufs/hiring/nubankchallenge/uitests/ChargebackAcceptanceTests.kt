@@ -3,9 +3,9 @@ package br.ufs.hiring.nubankchallenge.uitests
 import android.support.test.runner.AndroidJUnit4
 import android.text.SpannableString
 import br.ufs.hiring.nubankchallenge.chargeback.ChargebackActivity
+import br.ufs.hiring.nubankchallenge.mocked.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.robots.chargebackScreenIsSuchThat
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
-import br.ufs.hiring.nubankchallenge.mocked.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState
@@ -188,7 +188,7 @@ class ChargebackAcceptanceTests {
     @Test fun acceptUserCreditcardOperationMayFailDueInternetError() {
         webServiceSimulatedWith {
             chargebackRetrievedWithSuccess()
-            creditcardBlocksFailsWithInternetError()
+            creditcardBlockFailsWithInternetError()
         }
 
         launcher.startScreen()
@@ -208,7 +208,7 @@ class ChargebackAcceptanceTests {
     @Test fun acceptUserCreditcardOperationMayFailWithInfrastructureError() {
         webServiceSimulatedWith {
             chargebackRetrievedAndCreditcardBlockedPreventively()
-            creditcardUnblocksFailsWithInfrastructureError()
+            creditcardUnblockFailsWithInternetError()
         }
 
         launcher.startScreen()
@@ -218,7 +218,7 @@ class ChargebackAcceptanceTests {
             onCreditcardInteraction {
                 verifyCreditcardAs(CreditcardState.BlockedBySystem)
                 performCreditcardUnblocking()
-                infrastructureErrorReported(launcher.activity.window)
+                internetErrorReported(launcher.activity.window)
                 verifyCreditcardAs(CreditcardState.BlockedBySystem)
             }
         }
