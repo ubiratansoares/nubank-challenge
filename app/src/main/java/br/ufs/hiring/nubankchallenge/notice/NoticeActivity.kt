@@ -1,5 +1,6 @@
 package br.ufs.hiring.nubankchallenge.notice
 
+import android.app.ActivityOptions.makeCustomAnimation
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -53,6 +54,11 @@ class NoticeActivity : AppCompatActivity(),
     override fun onDestroy() {
         subscription.dispose()
         super.onDestroy()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.slidedown)
     }
 
     override fun showLoading(): Action {
@@ -131,7 +137,15 @@ class NoticeActivity : AppCompatActivity(),
     }
 
     private fun proceedToChargeback() {
-        startActivity(Intent(this, ChargebackActivity::class.java))
+        val noAnimations =
+                makeCustomAnimation(
+                this,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+        ).toBundle()
+
+        val toChargeback = Intent(this, ChargebackActivity::class.java)
+        startActivity(toChargeback, noAnimations)
     }
 
     private fun callToAction(

@@ -39,14 +39,16 @@ class ChargebackActivity : AppCompatActivity(),
     val screen by screenProvider { PresentationFactory.chargebackScreen() }
     val presenter by lazy { PresentationFactory.behaviorsPresenter(this) }
 
-    val dialog by lazy {
+    private val dialog by lazy {
         MaterialDialog.Builder(this)
                 .cancelable(false)
                 .customView(R.layout.view_chargeback_submission, true)
                 .build()
     }
 
-    val subscriptions by lazy { CompositeDisposable() }
+    private val subscriptions by lazy { CompositeDisposable() }
+
+    private var finished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +56,14 @@ class ChargebackActivity : AppCompatActivity(),
         setupViews()
     }
 
-    override fun onBackPressed() {
-        overridePendingTransition(0, 0)
-        super.onBackPressed()
+    override fun finish() {
+        super.finish()
+
+        val exitAnimation = if (finished) R.anim.slidedown else android.R.anim.fade_out
+        overridePendingTransition(
+                android.R.anim.fade_in,
+                exitAnimation
+        )
     }
 
     override fun onResume() {
@@ -186,6 +193,7 @@ class ChargebackActivity : AppCompatActivity(),
                         {
                             submissionView.displaySuccess()
                             hideAllOtherViews()
+                            finished = true
                         },
                         { Log.e("Chargeback", "Error -> $it") }
                 )

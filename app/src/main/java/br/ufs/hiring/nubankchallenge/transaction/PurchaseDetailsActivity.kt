@@ -1,5 +1,6 @@
 package br.ufs.hiring.nubankchallenge.transaction
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,8 +17,21 @@ class PurchaseDetailsActivity : AppCompatActivity() {
         fillWithFakeData()
 
         startChargebackButton.setOnClickListener {
-            startActivity(Intent(baseContext, NoticeActivity::class.java))
+            goToNotice()
         }
+    }
+
+    private fun goToNotice() {
+        val withTransitions =
+                ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slideup,
+                        android.R.anim.fade_out
+                ).toBundle()
+
+
+        val noticeScreen = Intent(baseContext, NoticeActivity::class.java)
+        startActivity(noticeScreen, withTransitions)
     }
 
     private fun fillWithFakeData() {
