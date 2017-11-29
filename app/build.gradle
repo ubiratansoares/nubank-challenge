@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion globalConfiguration["minSDK"]
         targetSdkVersion globalConfiguration["targetSDK"]
-        applicationId "nubank.hiring.ufs.br.nubankchallenge"
+        applicationId "br.ufs.nubankchallenge"
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
