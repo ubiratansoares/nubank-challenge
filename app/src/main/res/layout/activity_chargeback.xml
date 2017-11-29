@@ -50,8 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="@dimen/twentyfour_dips"
-            android:text="Cancelar"
-            android:textColor="@color/gray_call_to_action" />
+            android:text="@string/button_leave_chargeback"
+            android:textColor="@color/gray_call_to_action"
+            />
 
         <Button
             android:id="@+id/performChargebackButton"
@@ -61,11 +62,11 @@
             android:layout_weight="1"
             android:elevation="0dp"
             android:padding="@dimen/twentyfour_dips"
-            android:text="Contestar"
-            android:textColor="@color/colorAccent" />
+            android:text="@string/button_perform_chargeback"
+            android:textColor="@color/colorAccent"
+            />
     </LinearLayout>
-
-
+    
     <LinearLayout
         android:id="@+id/chargebackContainer"
         android:layout_width="match_parent"

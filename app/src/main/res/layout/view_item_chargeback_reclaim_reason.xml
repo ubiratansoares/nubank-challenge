@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Switch xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.SwitchCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/eight_dips"
     android:paddingTop="@dimen/eight_dips"
-    android:text="Está com o cartão em mãos?"
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    tools:checked="true" />
+    android:textColor="@color/green"
+    android:theme="@style/GreenSwitch"
+    tools:checked="true"
+    tools:text="Está com o cartão em mãos?"
+    />

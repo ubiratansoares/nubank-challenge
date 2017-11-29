@@ -12,4 +12,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="GreenSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/green</item>
+        <item name="colorSwitchThumbNormal">@color/gray_call_to_action</item>
+        <item name="android:colorForeground">@color/green_foreground</item>
+    </style>
 </resources>

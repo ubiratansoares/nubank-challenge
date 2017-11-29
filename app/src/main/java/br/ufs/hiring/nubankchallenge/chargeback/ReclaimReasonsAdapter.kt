@@ -1,10 +1,10 @@
 package br.ufs.hiring.nubankchallenge.chargeback
 
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SwitchCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import br.ufs.hiring.nubankchallenge.R
 import br.ufs.nubankchallenge.core.presentation.chargeback.ReasonRowModel
 
@@ -39,7 +39,7 @@ class ReclaimReasonsAdapter(val reasons: List<ReasonRowModel>) :
 
 class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(model: ReasonRowModel) = with(itemView as Switch) {
+    fun bind(model: ReasonRowModel) = with(itemView as SwitchCompat) {
         text = model.description
         isChecked = model.choosedByUser
         setOnCheckedChangeListener { _, isChecked -> model.choosedByUser = isChecked }

@@ -23,5 +23,7 @@
     <string name="title_chargeback_submission_error">Contestação não recebida</string>
     <string name="title_chargeback_submission_default">Solicitando</string>
     <string name="body_chargeback_submission_default">Sua contestação está sendo enviada...</string>
+    <string name="button_perform_chargeback">Contestar</string>
+    <string name="button_leave_chargeback">Cancelar</string>
 
 </resources>
