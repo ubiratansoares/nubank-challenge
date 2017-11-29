@@ -12,15 +12,24 @@
         android:name=".App"
         android:theme="@style/NuChallenge.NoActionBar">
 
-        <activity android:name=".transaction.PurchaseDetailsActivity">
+        <activity
+            android:name=".transaction.PurchaseDetailsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".notice.NoticeActivity"/>
-        <activity android:name=".chargeback.ChargebackActivity"/>
+        <activity
+            android:name=".notice.NoticeActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name=".chargeback.ChargebackActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 
