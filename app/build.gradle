@@ -29,14 +29,27 @@ android {
         }
     }
 
+    signingConfigs {
+        exercise {
+            storeFile file("../exercisekeystore")
+            storePassword "123456"
+            keyAlias 'exercise'
+            keyPassword "123456"
+        }
+    }
+
     flavorDimensions "envs"
 
     productFlavors {
         mock {
             applicationIdSuffix = ".mock"
             multiDexEnabled = true
+            signingConfig signingConfigs.exercise
         }
-        live
+
+        live {
+            signingConfig signingConfigs.exercise
+        }
     }
 
     testOptions {
