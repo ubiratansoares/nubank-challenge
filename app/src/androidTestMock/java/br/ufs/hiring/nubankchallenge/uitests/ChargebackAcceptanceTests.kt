@@ -5,7 +5,7 @@ import android.text.SpannableString
 import br.ufs.hiring.nubankchallenge.chargeback.ChargebackActivity
 import br.ufs.hiring.nubankchallenge.uitests.robots.chargebackScreenIsSuchThat
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
-import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulatedWith
+import br.ufs.hiring.nubankchallenge.mocked.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import br.ufs.nubankchallenge.core.presentation.chargeback.ChargebackScreenModel
 import br.ufs.nubankchallenge.core.presentation.chargeback.CreditcardState

@@ -1,6 +1,5 @@
-package br.ufs.hiring.nubankchallenge.uitests.robots
+package br.ufs.hiring.nubankchallenge.mocked
 
-import br.ufs.hiring.nubankchallenge.factories.FakeResponses
 import br.ufs.hiring.nubankchallenge.factories.WebServiceFactory
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.RemoteSystemDown
 import br.ufs.nubankchallenge.core.domain.errors.InfrastructureError.UndesiredResponse
@@ -107,6 +106,11 @@ object ScenarioSimulator {
     }
 
 
-
-
+    fun allResponsesSucceed() {
+        noticeRetrievedWithSuccess()
+        chargebackRetrievedWithSuccess()
+        creditcardBlocksWithSuccess()
+        creditcardUnblocksWithSuccess()
+        purchaseReclaimedWithSuccess()
+    }
 }

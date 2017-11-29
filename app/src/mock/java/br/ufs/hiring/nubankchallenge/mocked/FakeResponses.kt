@@ -1,4 +1,4 @@
-package br.ufs.hiring.nubankchallenge.factories
+package br.ufs.hiring.nubankchallenge.mocked
 
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackActionsPayload
 import br.ufs.nubankchallenge.core.infrastructure.models.ChargebackNoticePayload

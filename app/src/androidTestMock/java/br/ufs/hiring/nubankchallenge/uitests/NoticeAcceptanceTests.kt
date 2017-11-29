@@ -1,12 +1,12 @@
 package br.ufs.hiring.nubankchallenge.uitests
 
 import android.support.test.runner.AndroidJUnit4
-import br.ufs.hiring.nubankchallenge.factories.FakeResponses
+import br.ufs.hiring.nubankchallenge.mocked.FakeResponses
 import br.ufs.hiring.nubankchallenge.factories.WebServiceFactory
 import br.ufs.hiring.nubankchallenge.notice.NoticeActivity
 import br.ufs.hiring.nubankchallenge.uitests.robots.errorFeedback
 import br.ufs.hiring.nubankchallenge.uitests.robots.noticeInformation
-import br.ufs.hiring.nubankchallenge.uitests.robots.webServiceSimulatedWith
+import br.ufs.hiring.nubankchallenge.mocked.webServiceSimulatedWith
 import br.ufs.hiring.nubankchallenge.uitests.util.ScreenLauncher
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.Assert.assertTrue
