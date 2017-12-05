@@ -31,7 +31,7 @@ fun charegebackOptionsFromPayload(payload: ChargebackActionsPayload): Chargeback
 
     return with(payload) {
         val causes = reasons
-                ?.map { PossibleReclaimReason(it.id, it.title) }
+                ?.map { PossibleReclaimReason(it.id!!, it.title!!) }
                 ?: throw UndesiredResponse
 
         ChargebackOptions(
