@@ -1,84 +1,48 @@
 # Nubank Challenge
  
-> This is my take for an Android Software Engineer position at Nubank. Check all details below
+> Desafio prático relacionado ao processo seletivo para Engenheiro de Software no Nubank
 
-## Why
+## Motivação
 
-I just want work (finally) in a company where technology 
-**really matters** and people **really cares** about Software Engineering and 
-the product. 
+Há pouco mais de um ano eu apliquei para um processo seletivo no [Nubank](https://nubank.com.br/). O presente *code challenge* foi a terceira etapa desse processo seletivo.
 
-I believe that Nubank matches ... So here I am. 🚀
+À época, foi me pedido de forma explícita que o código-fonte fosse desenvolvido em um repositório **privado** aqui no Github, o qual deveria ter um usuário _xpto_ como colaborador convidado.
 
-## How
+Essa prova prática me tomou 4 dias, ou em torno de 36 a 40 horas de trabalho para ser concluído. Após um feedback positivo sobre ela, seguido meia tarde de pair programming e entrevistas adicionais, a vaga me foi negada por [cultural fit](https://searchcio.techtarget.com/definition/Cultural-fit).
 
-This is a small Android application that uses the provided 
-sandbox REST API to solve the chargeback user flow. 
-
-This solution relies on several modern approaches to build Android applications
-
-- 100% written in Kotlin
-- Rock-solid reactive architecture, powered with MVVM + RxJava2 with unique approach
-- Massive test coverage, using both local JVM (JUnit and Roboletric) 
-and Instrumentation (Espresso) test frameworks
-- ETC
-
-## Setup
-
-This application uses
-- Android Gradle Plugin 3+
-- Kotlin 1.2+
-
-In order to import and runs this project on Android Studio, please check your 
-IDE plugins to meet these requirements (avoiding some nasty bugs).
-
-## Building and running tests
-
-All the build variants can be built by the straightfoward
-
-```
-./gradlew build
-```
-
-This Gradle tasks will build all the four variants for this project as well 
-run the JVM local tests for all of them.
-
-If you want to run instrumentation tests, you may want to leverage one of the `mock` 
-variants of this build, since these variants rely on REST API calls stubbed with
-Mockito and properly configured accorded the desired scenario per test.
-
-```
-./gradlew connectedMockDebugAndroidTest
-```
-
-This approach provides hermetic testing conditions for the acceptance tests 
-implemented with Instrumentation/Espresso.
  
-**NOTE** - You must have an online AVD or Android device to run this task
+Em outras palavras, àquela ocasião, aprendi
 
-## Installing
+- Pedir para fazer checks culturais que importam logo no início de um processo seletivo é importante, em especial quando a vaga envolve startups cuja cultura pode ser mais propaganda do que realidade
+- Recusar processos seletivos cujo desafio prático não possa ser open-source
 
-Any one of the four outputs APKs may be used for manual checking of this solution.
+## Sobre
 
-However, note that `app-mock-*.apk` ones will **EVER** behave the same way, ignoring 
-netwoking and assuming all the REST API call as successfull : therefore, you are 
-not able to verify any error treatments using these artifacts.
+Confira a [documentação](./DOCS.md) para mais contexto. No final das contas, esse não é nem o *challenge* mais interessante e muito menos o melhor que eu já executei, sendo muito similar a outros que eu fiz à mesma época nas perspectivas de decisão de arquitetura, estilo de código, stack de conhecimento e afins.
 
-In order to check all the full features delivered with this exercise, you must
-use one of `app-live-*.apk` APK artifacts, grabing one APK from 
-**app/build/outputs/apk** after the proper assemble Gradle tasks like
+Penso que assim como todo programador, ao retornar a esse repositório por acaso hoje, eu me deparei em como concluo fazer *simplesmente* melhor hoje dia; dado esse contexto, o fato desse código ser agora público é muito mais para existir (mais) um registro aberto de uma curva de aprendizado do que para qualquer outra coisa.
 
-```
-./gradlew assembleLive
-```
-
-or installing the APK directly on device, by instance
+## LICENSE
 
 ```
-./gradlew installLiveDebug 
+The MIT License (MIT)
+
+Copyright (c) 2018 Ubiratan Soares
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
-
-## Questions?
-
-I`m glad to awser, just ping me via email/hangouts 😄
-
